@@ -44,7 +44,7 @@ module.exports = function(RED) {
                 artifacts.push(msg.artifact);
                 if(count==msg.numberOfArtifacts){
 
-                    var res = request('POST', 'http://menzel.informatik.rwth-aachen.de/trainDORepository/train/ship', {
+                    var res = request('POST', 'http://0.0.0.0/RepositoryService/train/ship', {
                         json: msg.message.train,
                     });
                     var resultTrain = JSON.parse(res.getBody('utf8'));

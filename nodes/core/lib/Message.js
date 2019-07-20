@@ -188,11 +188,7 @@ Message = {
                         },
                     ],
                 stationProfiles: {
-                    stationProfile:[
-                        {
-                            content:[],
-                        }
-                    ]
+                    stationProfile:[{}]
                 },
             }
             ],
