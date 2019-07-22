@@ -2,55 +2,97 @@ module.exports = function(RED) {
 
     'use strict';
     var message = require('../lib/Message.js');
+    var request = require('sync-request');
+    var index = -1;
 
     function ResourceNode(config) {
+
         console.log("Starting Resource Node");
         RED.nodes.createNode(this,config);
         var node = this;
 
-        var resources = new Object();
-        resources.resource = [];
-        resources.resource[0] = new Object();
-        resources.resource[0].name = config.name;
-        resources.resource[0].description = config.description;
+        var resources = [];
+        resources[index] = new Object();
+        resources[index].name = config.name;
+        resources[index].description = config.description;
         //OCI
-        resources.resource[0].oci = new Object();
-        resources.resource[0].oci.created = config.created;
-        resources.resource[0].oci.author = config.author;
-        resources.resource[0].oci.architecture = config.architecture;
-        resources.resource[0].oci.os = config.os;
-        resources.resource[0].oci.config  = new Object();
-        resources.resource[0].oci.user = config.user;
-        resources.resource[0].oci.exposedPorts = [];
-        resources.resource[0].oci.exposedPorts[0]  = new Object();
-        resources.resource[0].oci.port = config.port;
-        resources.resource[0].oci.protocol = config.protocol;
-        resources.resource[0].oci.env = [];
-        resources.resource[0].oci.env[0]   =  new Object();;
-        resources.resource[0].oci.entrypoint = [];
-        resources.resource[0].oci.entrypoint[0]  =  new Object();
-        resources.resource[0].oci.cmd = [];
-        resources.resource[0].oci.cmd[0] =  new Object();
-        resources.resource[0].oci.volumes = [];
-        resources.resource[0].oci.volumes[0] =  new Object();
-        resources.resource[0].oci.env = config.env;
-        resources.resource[0].oci.entrypoint = config.entrypoint;
-        resources.resource[0].oci.cmd = config.cmd;
-        resources.resource[0].oci.volumes = config.volumes;
+        resources[index].oci = new Object();
+        resources[index].oci.created = config.created;
+        resources[index].oci.author = config.author;
+        resources[index].oci.architecture = config.architecture;
+        resources[index].oci.os = config.os;
+        resources[index].oci.config  = new Object();
+        resources[index].oci.config.user = config.user;
+        resources[index].oci.config.exposedPorts = [];
+        resources[index].oci.config.exposedPorts[index] = new Object();
+        resources[index].oci.config.exposedPorts[index].port = config.port;
+        resources[index].oci.config.exposedPorts[index].protocol = config.protocol;
+        resources[index].oci.config.cmd = [];
+        resources[index].oci.config.cmd[index] = new Object();
+        resources[index].oci.config.cmd[index] = config.cmd;
+        resources[index].oci.config.volumes = [];
+        resources[index].oci.config.volumes[index]  = new Object();
+        resources[index].oci.config.volumes[index]  = config.volumes;
+
+        resources[index].oci.config.env = config.env;
+        resources[index].oci.config.entrypoint = config.entrypoint;
 
         this.on('input', function(msg) {
 
 
-            msg.message.train.wagons[0].resources = resources;
+            //======================================================
+            var resources = [];
+            resources[index] = new Object();
+            resources[index].name = config.name;
+            resources[index].description = config.description;
+            //OCI
+            resources[index].oci = new Object();
+            resources[index].oci.created = config.created;
+            resources[index].oci.author = config.author;
+            resources[index].oci.architecture = config.architecture;
+            resources[index].oci.os = config.os;
+            resources[index].oci.config  = new Object();
+            resources[index].oci.config.user = config.user;
+            resources[index].oci.config.exposedPorts = [];
+            resources[index].oci.config.exposedPorts[index] = new Object();
+            resources[index].oci.config.exposedPorts[index].port = config.port;
+            resources[index].oci.config.exposedPorts[index].protocol = config.protocol;
+            resources[index].oci.config.cmd = [];
+            resources[index].oci.config.cmd[index] = new Object();
+            resources[index].oci.config.cmd[index] = config.cmd;
+            resources[index].oci.config.volumes = [];
+            resources[index].oci.config.volumes[index]  = new Object();
+            resources[index].oci.config.volumes[index]  = config.volumes;
 
-            var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/resources/train/'+msg.message.train.internalId, {
-                json: resources,
+            resources[index].oci.config.env = [];
+            resources[index].oci.config.env.push(config.env);
+
+            resources[index].oci.config.entrypoint= [];
+            resources[index].oci.config.entrypoint.push(config.entrypoint);
+
+            console.log("msg.message.train.wagons: "+JSON.stringify(msg.message.train.wagons));
+            //msg.message.train.wagons.resources = resources;
+            //======================================================
+            var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
+                json: resources[index],
             });
-            var resourcesResult =  JSON.parse(res.getBody('utf8'));
-            msg.message.train.wagons.resources = resourcesResult;
+            var result =  JSON.parse(res.getBody('utf8'));
+
+            console.log("result ==========>>> "+JSON.stringify(result))
+            msg.message.train.wagons.resources = result;
+            console.log("msg.message.train.wagons.resources: "+JSON.stringify(msg.message.train.wagons.resources));
+            //======================================================
+
+            //======================================================
+            var res = request('GET', 'http://0.0.0.0/RepositoryService/train/all/'+msg.message.train.internalId);
+            var train =  JSON.parse(res.getBody('utf8'));
+            msg.message.train = train;
+            //======================================================
 
             node.send(msg);
         });
     }
+
+    index++;
     RED.nodes.registerType("Resource",ResourceNode);
 }

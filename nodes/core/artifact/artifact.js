@@ -4,6 +4,7 @@ module.exports = function (RED) {
 
     'use strict';
     var message = require('../lib/Message.js');
+    var request = require('sync-request');
 
     function ArtifactNode(config) {
         RED.nodes.createNode(this, config);
@@ -30,48 +31,21 @@ module.exports = function (RED) {
                     msg.payload = buf;
                 }
 
-                // artifacts.push(artifact);
-                // msg.artifacts = this.artifacts;
-                // msg.message.train.wagons[0].resources[0].artifacts = artifacts;
 
-                //artifacts.push(artifact);
-                msg.artifacts = this.artifacts;
-                msg.message.train.wagons[0].resources[0].artifacts = artifacts;
-                msg.message.train.wagons[0].resources[0].artifacts.push(artifact);
-                console.log("artifact artfacts ===================>>> "+JSON.stringify(msg.message.train.wagons[0].resources[0].artifacts));
-                console.log("artifact ===================>>> "+JSON.stringify(artifact));
-                // console.log("node ===================>>> "+JSON.stringify(node));
-                // console.log("node ===================>>> "+JSON.stringify(config));
+                msg.message.train.wagons.resources.artifact = artifact;
+
+                var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
+                    json: artifact,
+                });
+                var artifactResult =  JSON.parse(res.getBody('utf8'));
+                msg.message.train.wagons.resources.artifact = artifactResult;
+
 
                 node.send(msg);
             }
         });
 
-        // this.on('close', function(msg) {
-        //     console.log("msg.count =====================================> "+count);
-        //     console.log("node =====================================> "+JSON.stringify(node));
-        //     console.log("msg.message.train.wagons[0].resources[0].artifacts = [] =====================================> "+msg.message.train.wagons[0].resources[0].artifacts);
-        //     // msg.message.train.wagons[0].resources[0].artifacts = []
-        //     // node.send(msg,msg.artifact,msg.count);
-        // });
 
-        // this.on('close', function(removed, done, msg) {
-        //     if (removed) {
-        //         console.log("This node has been deleted");
-        //     } else {
-        //         console.log("This node is being restarted");
-        //     }
-        //     console.log("done");
-        //     done(msg);
-        // });
-        //
-        // function done(msg){
-        //     console.log("msg.count =====================================> "+count);
-        //     console.log("node =====================================> "+JSON.stringify(node));
-        //     console.log("msg.message.train.wagons[0].resources[0].artifacts = [] =====================================> "+msg.message.train.wagons[0].resources[0].artifacts);
-        //     // msg.message.train.wagons[0].resources[0].artifacts = []
-        //     // node.send(msg,msg.artifact,msg.count);
-        // }
     }
     RED.nodes.registerType("Artifact", ArtifactNode);
 };
