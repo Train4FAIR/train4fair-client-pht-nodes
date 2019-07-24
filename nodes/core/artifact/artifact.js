@@ -32,13 +32,10 @@ module.exports = function (RED) {
                     msg.payload = buf;
                 }
 
-                console.log(" msg.message.train.wagons.resources: "+JSON.stringify( msg.message.train.wagons.resources));
-
                 var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
                     json: artifacts[index],
                 });
                 var trainResult =  JSON.parse(res.getBody('utf8'));
-                console.log("result ==========>>> "+JSON.stringify(trainResult))
                 msg.message.train = trainResult;
 
                 node.send(msg);

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Result',{
+    RED.nodes.registerType('Execute',{
         category: 'Train Modelling Nodes',
         color: '#a6bbcf',
         defaults: {
@@ -10,20 +10,20 @@
         outputs:1,
         icon: "inject.png",
         label: function() {
-            return "Result";
+            return "execute";
         },
 
     });
 </script>
 
-<script type="text/x-red" data-template-name="Result">
+<script type="text/x-red" data-template-name="Execute">
     <div class="form-row">
 
 
 </script>
 
 
-<script type="text/x-red" data-help-name="Result">
+<script type="text/x-red" data-help-name="Execute">
     <p>PHT Train Metadata is defined for a common agreement and integration between different PHT implementations.
 
 Train metadata includes the attributes to define overall Analytic task/workflow to be executed. Its component; Wagon is used as a term to define the atomic algorithm that is a subcomponent of the workflow, to run independently on a specific station. Wagon metadata contains attributes about required station profile and resources. Resources metadata attributes defines target runtime environment and all the constituent physical files of analytic task such as docker image file, python code file, cql query file .
