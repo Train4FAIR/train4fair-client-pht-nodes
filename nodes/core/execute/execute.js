@@ -13,13 +13,16 @@ module.exports = function(RED) {
         this.on('input', function(msg) {
 
             //create the clients, call the service and show the result. Finally add all to the result metadata Tracker.
-            console.log("1: Send Files to webdav");
+            console.log("1: land page customization as index.html of the webdav folder");
+            console.log("2: Send Files to webdav");
             //============================================================================================================
 
-            console.log(" msg.message.train.wagons.resources: "+JSON.stringify( msg.message.train.wagons.resources));
-
-
-
+            //###################################################
+            // var res = request('POST', 'http://0.0.0.0/RepositoryService/train/landpage/customization/webdav/'+msg.message.train.internalId);
+            // var trainResult =  JSON.parse(res.getBody('utf8'));
+            // console.log("### result ==========>>> "+JSON.stringify(trainResult))
+            // msg.message.train = trainResult;
+            //###################################################
 
             //console.log(" msg: "+JSON.stringify( msg));
             //console.log(" msg.message: "+JSON.stringify( msg.message));
