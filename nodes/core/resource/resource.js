@@ -70,17 +70,12 @@ module.exports = function(RED) {
             resources[index].oci.config.entrypoint= [];
             resources[index].oci.config.entrypoint.push(config.entrypoint);
 
-            console.log("msg.message.train.wagons: "+JSON.stringify(msg.message.train.wagons));
-            //msg.message.train.wagons.resources = resources;
             //======================================================
             var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
                 json: resources[index],
             });
             var result =  JSON.parse(res.getBody('utf8'));
-
-            console.log("result ==========>>> "+JSON.stringify(result))
             msg.message.train.wagons.resources = result;
-            console.log("msg.message.train.wagons.resources: "+JSON.stringify(msg.message.train.wagons.resources));
             //======================================================
 
             //======================================================

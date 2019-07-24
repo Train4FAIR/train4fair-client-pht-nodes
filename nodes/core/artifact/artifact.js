@@ -1,51 +1,52 @@
-var fs = require('fs');
 
 module.exports = function (RED) {
 
     'use strict';
     var message = require('../lib/Message.js');
     var request = require('sync-request');
+    var index = -1;
 
     function ArtifactNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         var artifacts = [];
-        var artifact = new Object();
-        artifact.name = config.name;
-        artifact.filename = config.filename;
-        artifact.format = config.format;
-        artifact.filedata = config.filedata;
+        artifacts[index] = new Object();
+        artifacts[index].name = config.name;
+        artifacts[index].filename = config.filename;
+        artifacts[index].format = config.format;
+        artifacts[index].filedata = config.filedata;
 
 
 
         this.on('input', function (msg) {
-            var index = config.filedata.indexOf(';base64,');
-            if (index === -1) {
+            var counter = config.filedata.indexOf(';base64,');
+            if (counter === -1) {
                 node.error('File format error', msg);
             } else {
-                var filedata = config.filedata.substring(index + ';base64,'.length);
+                var filedata = config.filedata.substring(counter + ';base64,'.length);
                 var buf = new Buffer(filedata, 'base64');
                 if (config.format === 'utf8') {
                     msg.payload = buf.toString();
+                    artifacts[index].format = buf.toString();
                 } else {
                     msg.payload = buf;
+                    artifacts[index].filedata = buf.toString();
                 }
 
 
-                msg.message.train.wagons.resources.artifact = artifact;
-
-                var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
-                    json: artifact,
-                });
-                var artifactResult =  JSON.parse(res.getBody('utf8'));
-                msg.message.train.wagons.resources.artifact = artifactResult;
-
-
+                var artifacts = [];
+                artifacts[index] = new Object();
+                artifacts[index].name = config.name;
+                artifacts[index].filename = config.filename;
+                artifacts[index].format = config.format;
+                artifacts[index].filedata = config.filedata;
+                msg.artifacts = artifacts[index];
                 node.send(msg);
             }
         });
 
 
     }
+    index++;
     RED.nodes.registerType("Artifact", ArtifactNode);
 };
