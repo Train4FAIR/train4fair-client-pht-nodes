@@ -1,3 +1,4 @@
+var fs = require('fs');
 
 module.exports = function (RED) {
 
@@ -27,20 +28,19 @@ module.exports = function (RED) {
                 var buf = new Buffer(filedata, 'base64');
                 if (config.format === 'utf8') {
                     msg.payload = buf.toString();
-                    artifacts[index].format = buf.toString();
                 } else {
                     msg.payload = buf;
-                    artifacts[index].filedata = buf.toString();
                 }
 
+                console.log(" msg.message.train.wagons.resources: "+JSON.stringify( msg.message.train.wagons.resources));
 
-                var artifacts = [];
-                artifacts[index] = new Object();
-                artifacts[index].name = config.name;
-                artifacts[index].filename = config.filename;
-                artifacts[index].format = config.format;
-                artifacts[index].filedata = config.filedata;
-                msg.artifacts = artifacts[index];
+                var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
+                    json: artifacts[index],
+                });
+                var trainResult =  JSON.parse(res.getBody('utf8'));
+                console.log("result ==========>>> "+JSON.stringify(trainResult))
+                msg.message.train = trainResult;
+
                 node.send(msg);
             }
         });
