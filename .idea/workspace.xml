@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/resource/resource.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/resource/resource.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/train.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -40,13 +37,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="36" />
+            <state relative-caret-position="150">
+              <caret line="30" selection-start-line="30" selection-end-line="41" selection-end-column="85" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="267">
@@ -64,11 +61,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nodes/core/lib/Message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-263">
-              <caret line="151" column="21" lean-forward="true" selection-start-line="151" selection-start-column="21" selection-end-line="151" selection-end-column="21" />
+            <state relative-caret-position="70">
+              <caret line="166" selection-start-line="166" selection-end-line="185" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -104,8 +101,8 @@
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.html" />
         <option value="$PROJECT_DIR$/nodes/core/artifact/artifact.js" />
         <option value="$PROJECT_DIR$/nodes/core/train/train.js" />
-        <option value="$PROJECT_DIR$/nodes/core/wagon/wagon.js" />
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.js" />
+        <option value="$PROJECT_DIR$/nodes/core/wagon/wagon.js" />
       </list>
     </option>
   </component>
@@ -223,12 +220,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563640941694</updated>
-      <workItem from="1563640942987" duration="32909000" />
+      <workItem from="1563640942987" duration="36300000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32909000" />
+    <option name="totallyTimeSpent" value="36300000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1420" height="837" extended-state="0" />
@@ -292,24 +289,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/lib/Message.js">
+    <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-263">
-          <caret line="151" column="21" lean-forward="true" selection-start-line="151" selection-start-column="21" selection-end-line="151" selection-end-column="21" />
+        <state relative-caret-position="267">
+          <caret line="82" column="112" selection-start-line="82" selection-start-column="112" selection-end-line="82" selection-end-column="112" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="51" column="12" selection-start-line="51" selection-start-column="12" selection-end-line="51" selection-end-column="36" />
+        <state relative-caret-position="150">
+          <caret line="30" selection-start-line="30" selection-end-line="41" selection-end-column="85" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
+    <entry file="file://$PROJECT_DIR$/nodes/core/lib/Message.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="82" column="112" selection-start-line="82" selection-start-column="112" selection-end-line="82" selection-end-column="112" />
+        <state relative-caret-position="70">
+          <caret line="166" selection-start-line="166" selection-end-line="185" selection-end-column="30" />
         </state>
       </provider>
     </entry>

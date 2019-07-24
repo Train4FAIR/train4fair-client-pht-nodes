@@ -51,8 +51,6 @@ module.exports = function(RED) {
             var wagonsResult =  JSON.parse(res.getBody('utf8'));
             msg.message.train.wagons = wagonsResult;
 
-
-
             node.send(msg);
         });
     }
