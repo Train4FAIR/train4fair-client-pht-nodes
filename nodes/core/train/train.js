@@ -246,7 +246,7 @@ module.exports = function(RED) {
             msg.message = message;
             msg.message.train = message.train;
             //======================================================
-            var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/add/'+msg.message.train.internalId, {
                 json: msg.message.train,
             });
             var trainResult =  JSON.parse(res.getBody('utf8'));
@@ -257,19 +257,19 @@ module.exports = function(RED) {
         });
 
         function getInternalId(){
-            var res = request('GET', 'http://0.0.0.0/RepositoryService/train/InternalId');
+            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/InternalId');
             var internalId = res.getBody('utf8');
             return internalId
         }
 
         function getInternalPointer(){
-            var res = request('GET', 'http://0.0.0.0/RepositoryService/train/InternalPointer');
+            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/InternalPointer');
             var internalPointer = res.getBody('utf8');
             return internalPointer
         }
 
         function getInternalVersion(){
-            var res = request('GET', 'http://0.0.0.0/RepositoryService/train/InternalVersion');
+            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/InternalVersion');
             var internalVersion = res.getBody('utf8');
             return internalVersion
         }

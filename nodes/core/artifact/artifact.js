@@ -32,7 +32,7 @@ module.exports = function (RED) {
                     msg.payload = buf;
                 }
 
-                var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
+                var res = request('POST', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
                     json: artifacts[index],
                 });
                 var trainResult =  JSON.parse(res.getBody('utf8'));

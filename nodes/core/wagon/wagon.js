@@ -45,7 +45,7 @@ module.exports = function(RED) {
             msg.message.train.wagons = wagons;
 
             //======================================================
-            var res = request('POST', 'http://0.0.0.0/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
                 json: wagons[index],
             });
             var wagonsResult =  JSON.parse(res.getBody('utf8'));
