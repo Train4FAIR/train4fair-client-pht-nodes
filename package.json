@@ -9,7 +9,7 @@
             "execute": "nodes/core/execute/execute.js"
         }
     },
-    "version": "0.0.5",
+    "version": "0.0.6",
     "traindescription": "The nodes train, wagon, resources and Artifacts, to compose a Smart Train @ menzel.informatik.rwth-aachen.de",
     "dependencies": {
         "ajv": "6.10.0",
