@@ -99,7 +99,7 @@
                 label = label.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
                 var node = this;
                 $.ajax({
-                    url: "http://menzel.informatik.rwth-aachen.de:1880/inject/"+this.id,
+                    url: "/inject/"+this.id,
                     type:"POST",
                     success: function(resp) {
                         RED.notify(node._("inject.success",{label:label}),{type:"success",id:"inject"});

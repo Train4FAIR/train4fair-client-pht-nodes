@@ -71,7 +71,7 @@ module.exports = function(RED) {
             resources[index].oci.config.entrypoint.push(config.entrypoint);
 
             //======================================================
-            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
                 json: resources[index],
             });
             var result =  JSON.parse(res.getBody('utf8'));
@@ -79,7 +79,7 @@ module.exports = function(RED) {
             //======================================================
 
             //======================================================
-            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de/RepositoryService/train/all/'+msg.message.train.internalId);
+            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/all/'+msg.message.train.internalId);
             var train =  JSON.parse(res.getBody('utf8'));
             msg.message.train = train;
             //======================================================
