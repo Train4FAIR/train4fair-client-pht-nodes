@@ -20,17 +20,19 @@ module.exports = function (RED) {
 
 
         this.on('input', function (msg) {
-            var counter = config.filedata.indexOf(';base64,');
-            if (counter === -1) {
-                node.error('File format error', msg);
-            } else {
-                var filedata = config.filedata.substring(counter + ';base64,'.length);
-                var buf = new Buffer(filedata, 'base64');
-                if (config.format === 'utf8') {
-                    msg.payload = buf.toString();
-                } else {
-                    msg.payload = buf;
-                }
+            // var counter = config.filedata.indexOf(';base64,');
+            // if (counter === -1) {
+            //     node.error('File format error', msg);
+            // } else {
+            //     var filedata = config.filedata.substring(counter + ';base64,'.length);
+            //     var buf = new Buffer(filedata, 'base64');
+            //     if (config.format === 'utf8') {
+            //         msg.payload = buf.toString();
+            //     }
+            //     else {
+            //         msg.payload = buf;
+            //     }
+            var filedata = config.filedata;
 
                 var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
                     json: artifacts[index],
@@ -39,7 +41,8 @@ module.exports = function (RED) {
                 msg.message.train = trainResult;
 
                 node.send(msg);
-            }
+
+
         });
 
 
