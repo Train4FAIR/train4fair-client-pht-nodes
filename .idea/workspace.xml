@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="" />
+    <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -13,7 +15,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
@@ -22,7 +24,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/train/train.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="239">
@@ -249,12 +251,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563640941694</updated>
-      <workItem from="1563640942987" duration="62628000" />
+      <workItem from="1563640942987" duration="62663000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62628000" />
+    <option name="totallyTimeSpent" value="62663000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1420" height="837" extended-state="0" />
@@ -344,13 +346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
@@ -362,6 +357,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
           <caret line="271" column="38" selection-start-line="271" selection-start-column="38" selection-end-line="271" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
         </state>
       </provider>
     </entry>
