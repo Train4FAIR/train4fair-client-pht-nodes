@@ -8,7 +8,10 @@ Message = {
         internalId:"",
         internalVersion:"",
         internalPointer:"",
-
+        isAccessConstraintsOk:"",
+        hasGeneralRegistryPolicy:"",
+        hasEnoughPatientOcurrences:"",
+        aggregationResult:"",
 
         datacite:{
             identifier: {
@@ -148,6 +151,19 @@ Message = {
             {
                 name: "",
                 description: "",
+                checkMetadataAccess:"",
+                checkGeneralRegistryPolicy:"",
+                expectedTimePointsForAllpatientsFrom:"",
+                expectedTimePointsForAllpatientsTo:"",
+                cutValue:"",
+                shouldBeAggregated:"",
+                accessConstraints:{
+                    patientRegistry:"",
+                    severity:"",
+                    rareDisease:"",
+                    treatmentCenter:"",
+                    restrictionsOnPersonalData:""
+                },
                 resources:
                     [
                         {

@@ -23,6 +23,22 @@ module.exports = function(RED) {
         wagons[index].stationProfiles.stationProfile[2] = new Object();
         wagons[index].stationProfiles.stationProfile[2] = config.stationProfile3;
 
+        //UC03 - init
+        wagons[index].checkMetadataAccess = config.checkMetadataAccess;
+        wagons[index].checkGeneralRegistryPolicy = config.checkGeneralRegistryPolicy;
+        wagons[index].expectedTimePointsForAllpatientsFrom = config.expectedTimePointsForAllpatientsFrom;
+        wagons[index].expectedTimePointsForAllpatientsTo = config.expectedTimePointsForAllpatientsTo;
+        wagons[index].cutValue = config.cutValue;
+        wagons[index].shouldBeAggregated = config.shouldBeAggregated;
+        wagons[index].accessConstraints = new Object();
+        wagons[index].accessConstraints.patientRegistry = config.patientRegistry;
+        wagons[index].accessConstraints.severity = config.severity;
+        wagons[index].accessConstraints.rareDisease = config.rareDisease;
+        wagons[index].accessConstraints.treatmentCenter = config.treatmentCenter;
+        wagons[index].accessConstraints.restrictionsOnPersonalData = config.restrictionsOnPersonalData;
+        //UC03 - end
+
+
 
 
         this.on('input', function(msg) {
@@ -41,6 +57,20 @@ module.exports = function(RED) {
             wagons[index].stationProfiles.stationProfile[1]  = config.stationProfile2;
             wagons[index].stationProfiles.stationProfile[2] = new Object();
             wagons[index].stationProfiles.stationProfile[2] = config.stationProfile3;
+            //UC03 - init
+            wagons[index].checkMetadataAccess = config.checkMetadataAccess;
+            wagons[index].checkGeneralRegistryPolicy = config.checkGeneralRegistryPolicy;
+            wagons[index].expectedTimePointsForAllpatientsFrom = config.expectedTimePointsForAllpatientsFrom;
+            wagons[index].expectedTimePointsForAllpatientsTo = config.expectedTimePointsForAllpatientsTo;
+            wagons[index].cutValue = config.cutValue;
+            wagons[index].shouldBeAggregated = config.shouldBeAggregated;
+            wagons[index].accessConstraints = new Object();
+            wagons[index].accessConstraints.patientRegistry = config.patientRegistry;
+            wagons[index].accessConstraints.severity = config.severity;
+            wagons[index].accessConstraints.rareDisease = config.rareDisease;
+            wagons[index].accessConstraints.treatmentCenter = config.treatmentCenter;
+            wagons[index].accessConstraints.restrictionsOnPersonalData = config.restrictionsOnPersonalData;
+            //UC03 - end
             //======================================================
 
             msg.message.train.wagons = wagons;

@@ -8,6 +8,20 @@
             stationProfile1: {value:"",require:true},
             stationProfile2: {value:"",require:true},
             stationProfile3: {value:"",require:true},
+
+            //UC03 - init
+            checkMetadataAccess: {value:"",require:true},
+            checkGeneralRegistryPolicy: {value:"",require:true},
+            expectedTimePointsForAllpatientsFrom: {value:"",require:true},
+            expectedTimePointsForAllpatientsTo: {value:"",require:true},
+            cutValue: {value:"",require:true},
+            shouldBeAggregated: {value:"",require:true},
+            patientRegistry: {value:"",require:true},
+            severity: {value:"",require:true},
+            rareDisease: {value:"",require:true},
+            treatmentCenter: {value:"",require:true},
+            restrictionsOnPersonalData: {value:"",require:true},
+            //UC03 - end
         },
         inputs:1,
         outputs:1,
@@ -28,7 +42,7 @@
         <input type="text" id="node-input-name" placeholder="Name">
         <br/><br/>
         <label for="node-input-description"><i class="icon-tag"></i>Description: </label>
-        <input ttype="textarea" rows="6" cols="9" id="node-input-description" placeholder="Description">
+        <input type="textarea" rows="6" cols="9" id="node-input-description" placeholder="Description">
         <br/><br/>
 
 
@@ -66,7 +80,97 @@
 
     </div>
 </fieldset>
+<fieldset>
+    <legend>Wagon - UC03</legend>
 
+        <div class="form-row">
+            <label for="node-input-checkMetadataAccess"><i class="icon-tag"></i>Check Access Constraints: </label>
+            <select type="text" id="node-input-checkMetadataAccess">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                <div class="form-row">
+            <label for="node-input-checkGeneralRegistryPolicy"><i class="icon-tag"></i>Check General Registry Policy: </label>
+            <select type="text" id="node-input-checkGeneralRegistryPolicy">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                        <div class="form-row">
+            <label for="node-input-shouldBeAggregated"><i class="icon-tag"></i>Should be Aggregated: </label>
+            <select type="text" id="node-input-shouldBeAggregated">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                                <div class="form-row">
+            <label for="node-input-rareDisease"><i class="icon-tag"></i>Check Rare Disease: </label>
+            <select type="text" id="node-input-rareDisease">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                                        <div class="form-row">
+            <label for="node-input-restrictionsOnPersonalData"><i class="icon-tag"></i>Check Restrictions On Personal Data: </label>
+            <select type="text" id="node-input-restrictionsOnPersonalData">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                                        <div class="form-row">
+            <label for="node-input-patientRegistry"><i class="icon-tag"></i>Select Patient Registry Level: </label>
+            <select type="text" id="node-input-patientRegistry">
+                <option value="all">All</option>
+                <option value="any">Any</option>
+            </select>
+        </div>
+        <br/><br/>
+
+                                        <div class="form-row">
+            <label for="node-input-severity"><i class="icon-tag"></i>Select Disease Severity: </label>
+            <select type="text" id="node-input-severity">
+                <option value="high">High</option>
+                <option value="normal">Normal</option>
+                <option value="low">Low</option>
+            </select>
+        </div>
+        <br/><br/>
+
+
+        <fieldset>
+            <legend>Expected TimePoints For All Patients (Range)</legend>
+                <label for="node-input-expectedTimePointsForAllpatientsFrom"><i class="icon-tag"></i>From: </label>
+                <input type="text" id="node-input-expectedTimePointsForAllpatientsFrom" >
+                <br/><br/>
+
+                <label for="node-input-expectedTimePointsForAllpatientsTo"><i class="icon-tag"></i>To: </label>
+                <input type="text" id="node-input-expectedTimePointsForAllpatientsTo" >
+                <br/><br/>
+        </fieldset>
+
+                <label for="node-input-cutValue"><i class="icon-tag"></i>Cut Value: </label>
+                <input type="text"  id="node-input-cutValue" >
+                <br/><br/>
+
+                <label for="node-input-treatmentCenter"><i class="icon-tag"></i>Treatment Center: </label>
+                <input type="text"  id="node-input-treatmentCenter" >
+                <br/><br/>
+
+
+
+
+</fieldset>
 </script>
 
 <script type="text/x-red" data-help-name="Wagon">

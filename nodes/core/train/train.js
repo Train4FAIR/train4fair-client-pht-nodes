@@ -122,6 +122,11 @@ module.exports = function(RED) {
         message.train.datacite.resourceType.resourceTypeGeneral = config.resourceTypeGeneral;
         message.train.datacite.resourceType.content = config.resourceTypeContent;
 
+        //Train UC03 - Example
+        message.train.isAccessConstraintsOk = config.resourceTypeGeneral;
+        message.train.hasGeneralRegistryPolicy = config.hasGeneralRegistryPolicy;
+        message.train.hasEnoughPatientOcurrences = config.hasEnoughPatientOcurrences;
+        message.train.aggregationResult = config.aggregationResult;
 
 
 
@@ -242,6 +247,12 @@ module.exports = function(RED) {
             message.train.datacite.resourceType = new Object();
             message.train.datacite.resourceType.resourceTypeGeneral = config.resourceTypeGeneral;
             message.train.datacite.resourceType.content = config.resourceTypeContent;
+
+            //Train UC03 - Example
+            message.train.isAccessConstraintsOk = config.resourceTypeGeneral;
+            message.train.hasGeneralRegistryPolicy = config.hasGeneralRegistryPolicy;
+            message.train.hasEnoughPatientOcurrences = config.hasEnoughPatientOcurrences;
+            message.train.aggregationResult = config.aggregationResult;
 
             //======================================================
             msg.message = message;

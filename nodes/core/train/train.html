@@ -70,6 +70,13 @@
             <!-- Train DataCite - ResourceType -->
             resourceTypeGeneral: {value:"",require:true},
             resourceTypeContent: {value:"",require:true},
+
+            <!-- Train UC03 - Example -->
+            isAccessConstraintsOk: {value:"",require:true},
+            hasGeneralRegistryPolicy: {value:"",require:true},
+            hasEnoughPatientOcurrences: {value:"",require:true},
+            aggregationResult: {value:"",require:true},
+
         },
         inputs:0,
         outputs:1,
@@ -542,7 +549,30 @@
 
 </fieldset>
 
+<fieldset>
+    <legend>Train - UC03 Result</legend>
 
+            <div class="form-row">
+        <label for="node-input-isAccessConstraintsOk"><i class="icon-tag"></i>Is Access Constraints Valid: </label>
+        <input type="text" id="node-input-isAccessConstraintsOk" >
+        <br/><br/>
+
+                <div class="form-row">
+        <label for="node-input-hasGeneralRegistryPolicy"><i class="icon-tag"></i>There is General Registry Policy: </label>
+        <input type="text" id="node-input-hasGeneralRegistryPolicy">
+        <br/><br/>
+
+                <div class="form-row">
+        <label for="node-input-hasEnoughPatientOcurrences"><i class="icon-tag"></i>There are Enough Patient Ocurrences: </label>
+        <input type="text" id="node-input-hasEnoughPatientOcurrences" >
+        <br/><br/>
+
+                <div class="form-row">
+        <label for="node-input-aggregationResult"><i class="icon-tag"></i>Aggregation Result: </label>
+        <input type="text" id="node-input-aggregationResult" >
+        <br/><br/>
+
+</fieldset>
 </script>
 
 <script type="text/x-red" data-help-name="Train">
