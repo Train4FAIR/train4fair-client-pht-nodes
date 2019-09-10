@@ -1,7 +1,8 @@
 module.exports = function(RED) {
 
-    var message = require('../lib/Message.js');
+    var message = require('../lib/model/Message.js');
     var request = require('sync-request');
+    var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = 0;
     function TrainNode(config) {
         console.log("Starting Train Node");
@@ -16,9 +17,9 @@ module.exports = function(RED) {
         message.train.description = config.description;
         message.train.sourceRepository = config.sourceRepository;
         message.train.userToken = config.userToken;
-        message.train.internalId = getInternalId();
-        message.train.internalVersion = getInternalVersion();
-        message.train.internalPointer = getInternalPointer();
+        message.train.internalId = repositoryServiceLocator.getInternalId();
+        message.train.internalVersion = repositoryServiceLocator.getInternalVersion();
+        message.train.internalPointer = repositoryServiceLocator.getInternalPointer();
 
         //Train DataCite Core
         message.train.datacite = new Object();
@@ -137,9 +138,9 @@ module.exports = function(RED) {
             message.train.description = config.description;
             message.train.sourceRepository = config.sourceRepository;
             message.train.userToken = config.userToken;
-            message.train.internalId = getInternalId();
-            message.train.internalVersion = getInternalVersion();
-            message.train.internalPointer = getInternalPointer();
+            message.train.internalId = repositoryServiceLocator.getInternalId();
+            message.train.internalVersion = repositoryServiceLocator.getInternalVersion();
+            message.train.internalPointer = repositoryServiceLocator.getInternalPointer();
 
             //Train DataCite Core
             message.train.datacite = new Object();
@@ -246,7 +247,16 @@ module.exports = function(RED) {
             msg.message = message;
             msg.message.train = message.train;
             //======================================================
-            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/'+msg.message.train.internalId, {
+            var env = repositoryServiceLocator.getEnv();
+            console.log('env: '+env);
+            var host = env.host;
+            console.log('host: '+host);
+            var port = env.port;
+            console.log('port: '+port);
+
+            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/'+msg.message.train.internalId, {
+
                 json: msg.message.train,
             });
             var trainResult =  JSON.parse(res.getBody('utf8'));
@@ -256,23 +266,35 @@ module.exports = function(RED) {
             node.send(msg);
         });
 
-        function getInternalId(){
-            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalId');
-            var internalId = res.getBody('utf8');
-            return internalId
-        }
-
-        function getInternalPointer(){
-            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalPointer');
-            var internalPointer = res.getBody('utf8');
-            return internalPointer
-        }
-
-        function getInternalVersion(){
-            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalVersion');
-            var internalVersion = res.getBody('utf8');
-            return internalVersion
-        }
+        //
+        // var getEnv = function (env,type,token){
+        //     var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:8881/ServiceDiscovery/train/service/discovery/'+env+'/'+type+'/'+token);
+        //     var result = res.getBody('utf8');
+        //     return result;
+        // };
+        //
+        // var tmtEnv = JSON.parse(getEnv('TEST','TMT','admin'));
+        // function getInternalId(){
+        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalId');
+        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalId');
+        //     var internalId = res.getBody('utf8');
+        //     return internalId
+        // }
+        //
+        // function getInternalPointer(){
+        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalPointer');
+        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalPointer');
+        //
+        //     var internalPointer = res.getBody('utf8');
+        //     return internalPointer
+        // }
+        //
+        // function getInternalVersion(){
+        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalVersion');
+        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalVersion');
+        //     var internalVersion = res.getBody('utf8');
+        //     return internalVersion
+        // }
 
     }
     index++;

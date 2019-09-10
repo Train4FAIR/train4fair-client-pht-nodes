@@ -1,6 +1,7 @@
 module.exports = function(RED) {
     'use strict';
     var request = require('sync-request');
+    var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = -1;
 
     var artifacts = [];
@@ -29,7 +30,8 @@ module.exports = function(RED) {
             //console.log(" msg.message.train: "+JSON.stringify( msg.message.train));
             console.log(" msg.message.train.wagons: "+JSON.stringify( msg.message.train.wagons));
 
-            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
+            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
+            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
             var trainResult =  JSON.parse(res.getBody('utf8'));
             console.log("### result ==========>>> "+JSON.stringify(trainResult))
             msg.message.train = trainResult;

@@ -2,8 +2,9 @@ module.exports = function(RED) {
     console.log("Starting Wagon Node");
     'use strict';
 
-    var message = require('../lib/Message.js');
+    var message = require('../lib/model/Message.js');
     var request = require('sync-request');
+    var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = -1;
 
     function WagonNode(config) {
@@ -44,7 +45,8 @@ module.exports = function(RED) {
 
             msg.message.train.wagons = wagons;
             //======================================================
-            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
+            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
                 json: wagons[index],
             });
             var wagonsResult =  JSON.parse(res.getBody('utf8'));

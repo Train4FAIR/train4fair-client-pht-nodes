@@ -1,8 +1,9 @@
 module.exports = function(RED) {
 
     'use strict';
-    var message = require('../lib/Message.js');
+    var message = require('../lib/model/Message.js');
     var request = require('sync-request');
+    var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = -1;
 
     function ResourceNode(config) {
@@ -71,7 +72,8 @@ module.exports = function(RED) {
             resources[index].oci.config.entrypoint.push(config.entrypoint);
 
             //======================================================
-            var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
+            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
+            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
                 json: resources[index],
             });
             var result =  JSON.parse(res.getBody('utf8'));
@@ -79,7 +81,8 @@ module.exports = function(RED) {
             //======================================================
 
             //======================================================
-            var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/all/'+msg.message.train.internalId);
+            //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/all/'+msg.message.train.internalId);
+            var res = request('GET', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/all/'+msg.message.train.internalId);
             var train =  JSON.parse(res.getBody('utf8'));
             msg.message.train = train;
             //======================================================
