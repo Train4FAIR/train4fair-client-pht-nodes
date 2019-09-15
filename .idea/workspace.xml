@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/artifact/artifact.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/artifact/artifact.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/execute/execute.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/execute/execute.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/execute/execute.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/execute/execute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/lib/model/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/lib/model/Message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/resource/resource.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/resource/resource.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/resource/resource.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/resource/resource.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/train.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/train.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/wagon/wagon.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/wagon/wagon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,20 +16,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state relative-caret-position="91">
+              <caret line="35" column="207" lean-forward="true" selection-start-line="35" selection-start-column="131" selection-end-line="35" selection-end-column="207" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/artifact/artifact.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="41" column="66" lean-forward="true" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
+            <state relative-caret-position="222">
+              <caret line="38" column="143" lean-forward="true" selection-start-line="38" selection-start-column="143" selection-end-line="38" selection-end-column="187" />
             </state>
           </provider>
         </entry>
@@ -92,8 +82,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="76" column="131" lean-forward="true" selection-start-line="76" selection-start-column="131" selection-end-line="76" selection-end-column="175" />
+            <state relative-caret-position="124">
+              <caret line="74" column="88" lean-forward="true" selection-start-line="74" selection-start-column="14" selection-end-line="74" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -155,7 +145,6 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/nodes/core/lib/model/Message.js" />
         <option value="$PROJECT_DIR$/nodes/core/execute/execute.js" />
-        <option value="$PROJECT_DIR$/nodes/core/artifact/artifact.js" />
         <option value="$PROJECT_DIR$/nodes/core/artifact/artifact.html" />
         <option value="$PROJECT_DIR$/nodes/core/execute/execute.html" />
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.html" />
@@ -164,6 +153,7 @@
         <option value="$PROJECT_DIR$/nodes/core/train/train.js" />
         <option value="$PROJECT_DIR$/nodes/core/wagon/wagon.js" />
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.js" />
+        <option value="$PROJECT_DIR$/nodes/core/artifact/artifact.js" />
       </list>
     </option>
   </component>
@@ -312,23 +302,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563640941694</updated>
-      <workItem from="1563640942987" duration="100109000" />
+      <workItem from="1563640942987" duration="101762000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100109000" />
+    <option name="totallyTimeSpent" value="101762000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1420" height="837" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2494639" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2494639" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TypeScript" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.33020133" />
+      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.33020133" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -379,13 +370,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="55" selection-start-line="55" selection-end-line="57" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -440,15 +424,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="76" column="131" lean-forward="true" selection-start-line="76" selection-start-column="131" selection-end-line="76" selection-end-column="175" />
+        <state relative-caret-position="124">
+          <caret line="74" column="88" lean-forward="true" selection-start-line="74" selection-start-column="14" selection-end-line="74" selection-end-column="88" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/artifact/artifact.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="41" column="66" lean-forward="true" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="66" />
+        <state relative-caret-position="222">
+          <caret line="38" column="143" lean-forward="true" selection-start-line="38" selection-start-column="143" selection-end-line="38" selection-end-column="187" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="35" column="207" lean-forward="true" selection-start-line="35" selection-start-column="131" selection-end-line="35" selection-end-column="207" />
         </state>
       </provider>
     </entry>

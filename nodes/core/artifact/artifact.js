@@ -34,7 +34,7 @@ module.exports = function (RED) {
                     msg.payload = buf;
                 }
                 //var filedata = config.filedata;
-
+                console.log("Artifacts.js Forth Call: " +JSON.stringify(artifacts[index]));
                 //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifact/train/'+msg.message.train.internalId, {
                 var res = request('POST', 'http://' + repositoryServiceLocator.getEnv().host + ':' + repositoryServiceLocator.getEnv().port + '/RepositoryService/train/add/artifact/train/' + msg.message.train.internalId, {
                     json: artifacts[index],
