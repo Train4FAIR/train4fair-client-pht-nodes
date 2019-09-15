@@ -46,9 +46,9 @@ In our PHT Implementation Train is implemented as a Json document and registered
         defaults: {
             name: { value: "" },
             filename: { value: "" },
+            extension: { value: "" },
             filedata: { value: "" },
             format: { value: "utf8" },
-            numberOfArtifactsformat: { value: "" },
         },
         inputs: 1,
         outputs: 1,
@@ -58,22 +58,32 @@ In our PHT Implementation Train is implemented as a Json document and registered
         },
         oneditprepare: function () {
             $("#node-input-file").change(function () {
-                var filename = this.files[0].name;
+                var name = this.files[0].name;
+                var filename = JSON.stringify(this.files[0].name);
                 var reader = new FileReader();
                 reader.onload = function (event) {
                     $("#node-input-filename").text(filename);
+                    $("#node-input-filename").val(filename);
+                    $("#node-input-name").val(name);
+                    $("#node-input-name").text(name);
                     $("#node-input-filedata").val(event.target.result);
                 }
-                if (this.files[0].size > 100 * 1024) {
-                    alert('The embedded file size shold be less than 100KB.');
+                reader.readAsDataURL(this.files[0]);
+                <!--
+                if (this.files[0].size > 10000 * 1024) {
+                    alert('The embedded file size shold be less than 10000KB.');
                 } else {
                     reader.readAsDataURL(this.files[0]);
                 }
+                -->
             });
 
             $("#node-red-input-filename-clear").click(function() {
                 $("#node-input-filename").text("");
-                $("#node-input-filedata").val("");
+                $("#node-input-filename").val("");
+                $("#node-input-name").val("");
+                $("#node-input-name").text("");
+
             });
         }
     });

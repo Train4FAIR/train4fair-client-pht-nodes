@@ -74,6 +74,7 @@ module.exports = function(RED) {
             //======================================================
 
             msg.message.train.wagons = wagons;
+            //console.log("Wagon.js Second Call: " +JSON.stringify(wagons[index]));
             //======================================================
             //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
             var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {

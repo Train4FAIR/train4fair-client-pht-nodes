@@ -177,7 +177,8 @@ Message = {
                                         format: "",
                                         filedata:"",
                                         checksum: "",
-                                        fileUrl: ""
+                                        fileUrl: "",
+                                        extension:""
                                     }
                                 ],
                             oci: {

@@ -14,8 +14,8 @@ module.exports = function(RED) {
         this.on('input', function(msg) {
 
             //create the clients, call the service and show the result. Finally add all to the result metadata Tracker.
-            console.log("1: land page customization as index.html of the webdav folder");
-            console.log("2: Send Files to webdav");
+            //console.log("1: land page customization as index.html of the webdav folder");
+            //console.log("2: Send Files to webdav");
             //============================================================================================================
 
             //###################################################
@@ -28,14 +28,14 @@ module.exports = function(RED) {
             //console.log(" msg: "+JSON.stringify( msg));
             //console.log(" msg.message: "+JSON.stringify( msg.message));
             //console.log(" msg.message.train: "+JSON.stringify( msg.message.train));
-            console.log(" msg.message.train.wagons: "+JSON.stringify( msg.message.train.wagons));
+            //console.log(" msg.message.train.wagons: "+JSON.stringify( msg.message.train.wagons));
 
 
 
             //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
             var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
             var trainResult =  JSON.parse(res.getBody('utf8'));
-            console.log("### result ==========>>> "+JSON.stringify(trainResult))
+            //console.log("### result ==========>>> "+JSON.stringify(trainResult))
 
 
             msg.message.train = trainResult;

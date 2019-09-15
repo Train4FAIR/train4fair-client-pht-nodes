@@ -259,13 +259,14 @@ module.exports = function(RED) {
             msg.message.train = message.train;
             //======================================================
             var env = repositoryServiceLocator.getEnv();
-            console.log('env: '+env);
+            //console.log('env: '+env);
             var host = env.host;
-            console.log('host: '+host);
+            //console.log('host: '+host);
             var port = env.port;
-            console.log('port: '+port);
+            //console.log('port: '+port);
 
             //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/'+msg.message.train.internalId, {
+            //console.log("Train.js First Call: " +JSON.stringify(msg.message.train));
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/'+msg.message.train.internalId, {
 
                 json: msg.message.train,

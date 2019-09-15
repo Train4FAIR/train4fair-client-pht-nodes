@@ -81,8 +81,9 @@
         inputs:0,
         outputs:1,
         icon: "../icons/train.png",
-        label: function() {
-            return "Train";
+
+        label: function () {
+            return this.name || "Train";
         },
 
         button: {

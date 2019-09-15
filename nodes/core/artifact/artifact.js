@@ -25,7 +25,9 @@ module.exports = function (RED) {
                 node.error('File format error', msg);
             } else {
                 var filedata = config.filedata.substring(counter + ';base64,'.length);
-                var buf = new Buffer(filedata, 'base64');
+                //var buf = new Buffer(filedata, 'base64');
+                var buf = new Buffer.from(filedata, 'base64');
+
                 if (config.format === 'utf8') {
                     msg.payload = buf.toString();
                 } else {
