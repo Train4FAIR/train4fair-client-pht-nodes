@@ -10,6 +10,7 @@ module.exports = function(RED) {
     function WagonNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
+
         var wagons = [];
         wagons[index] = new Object();
         wagons[index].name = config.name;
@@ -43,7 +44,6 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
 
-
             //======================================================
             var wagons = [];
             wagons[index] = new Object();
@@ -73,16 +73,63 @@ module.exports = function(RED) {
             //UC03 - end
             //======================================================
 
-            msg.message.train.wagons = wagons;
-            //console.log("Wagon.js Second Call: " +JSON.stringify(wagons[index]));
+
+
             //======================================================
-            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
-            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/wagon/train/'+msg.message.train.internalId, {
+
+            //internalPointer setup
+            if(node.wires!='' && node.wires!=null && node.wires!=undefined){
+                var wires = JSON.stringify(node.wires);
+                wires = wires.replace('[[','');
+                wires = wires.replace(']]','');
+            }
+            wagons[index].internalPointer = wires;
+            //======================================================
+
+            //======================================================
+            //node id setup
+            node.internalId = "";
+            node.internalId= msg.message.train.internalId;
+            //======================================================
+
+            //======================================================
+            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var host = env.host;
+            var port = env.port;
+
+
+            //======================================================
+
+
+            //======================================================
+            console.log("=============== wagon setup =================");
+            //Wagon setup
+            msg.message.train.wagons = wagons[index];
+
+
+            //======================================================
+            //add wagon
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagon/add/'+msg.message.train.internalId+'/', {
                 json: wagons[index],
             });
             var wagonsResult =  JSON.parse(res.getBody('utf8'));
-            msg.message.train.wagons = wagonsResult;
+            if(wagonsResult!=null || wagonsResult!="" || wagonsResult!=undefined){
+                msg.message.train.wagons = wagonsResult;
+            }
 
+            //======================================================
+
+            //add nodered metadata
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagonNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
+                json: node,
+            });
+            //======================================================
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.trainNode.id);
+
+
+            msg.wagonNode = node;
+            //msg.trainNode = undefined;
             node.send(msg);
         });
     }

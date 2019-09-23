@@ -157,6 +157,7 @@ Message = {
                 expectedTimePointsForAllpatientsTo:"",
                 cutValue:"",
                 shouldBeAggregated:"",
+                internalPointer:"",
                 accessConstraints:{
                     patientRegistry:"",
                     severity:"",
@@ -169,6 +170,7 @@ Message = {
                         {
                             name: "",
                             description: "",
+                            internalPointer:"",
                             artifacts:
                                 [
                                     {
@@ -178,7 +180,8 @@ Message = {
                                         filedata:"",
                                         checksum: "",
                                         fileUrl: "",
-                                        extension:""
+                                        extension:"",
+                                        internalPointer:""
                                     }
                                 ],
                             oci: {
@@ -212,7 +215,9 @@ Message = {
         similarProjects:[],
         flow:{
             flowID:"",
-            flowURL:""
+            flowURL:"",
+            description:"",
+            documentationEntrypoint:"",
         },
 
     }

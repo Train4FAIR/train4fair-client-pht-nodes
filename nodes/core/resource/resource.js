@@ -40,7 +40,6 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
 
-
             //======================================================
             var resources = [];
             resources[index] = new Object();
@@ -71,24 +70,58 @@ module.exports = function(RED) {
             resources[index].oci.config.entrypoint= [];
             resources[index].oci.config.entrypoint.push(config.entrypoint);
 
+
             //======================================================
-            //console.log("Resource.js Third Call: " +JSON.stringify(resources[index]));
-            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
-            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/resource/train/'+msg.message.train.internalId, {
+
+            //internalPointer setup
+            if(node.wires!='' && node.wires!=null && node.wires!=undefined){
+                var wires = JSON.stringify(node.wires);
+                wires = wires.replace('[[','');
+                wires = wires.replace(']]','');
+            }
+            resources[index].internalPointer = wires;
+            //======================================================
+
+            //======================================================
+            //node id setup
+            node.internalId = "";
+            node.internalId= msg.message.train.internalId;
+            //======================================================
+
+            //======================================================
+            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var host = env.host;
+            var port = env.port;
+
+
+            //======================================================
+
+
+            //======================================================
+            console.log("=============== resources setup =================");
+            //resources setup
+            msg.message.train.resources = resources[index];
+
+            //======================================================
+            //add Resource
+            var res = request('POST','http://'+host+':'+port+'/RepositoryService/resource/add/'+msg.message.train.internalId+'/', {
                 json: resources[index],
             });
             var result =  JSON.parse(res.getBody('utf8'));
-            msg.message.train.wagons.resources = result;
+            if(result!=null || result!="" || result!=undefined){
+                msg.message.train.resources = result;
+            }
             //======================================================
+            //add nodered metadata
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/resourceNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
+                json: node,
+            });
+            //======================================================
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.wagonNode.id);
 
-            //======================================================
-            //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/all/'+msg.message.train.internalId);
-            var res = request('GET', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/all/'+msg.message.train.internalId);
-            var train =  JSON.parse(res.getBody('utf8'));
-            msg.message.train = train;
-            //console.log("Resource.js Forth Call: " +JSON.stringify(msg.message.train));
-            //======================================================
-
+            msg.resourceNode = node;
+            //msg.wagonNode = undefined;
             node.send(msg);
         });
     }

@@ -4,11 +4,12 @@ module.exports = function(RED) {
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = 0;
+
     function TrainNode(config) {
         console.log("Starting Train Node");
         RED.nodes.createNode(this,config);
         var node = this;
-
+        var flowContext = this.context().flow;
 
         // Train Core
         message = new Object();
@@ -133,9 +134,10 @@ module.exports = function(RED) {
 
 
         this.on('input', function(msg) {
-            //======================================================
 
-
+            console.log("flowContext: "+flowContext)
+            console.log("global "+global);
+            flowContext.set("trainNode",node);
             // Train Core
             message = new Object();
             message.train = new Object();
@@ -248,6 +250,8 @@ module.exports = function(RED) {
             message.train.datacite.resourceType.resourceTypeGeneral = config.resourceTypeGeneral;
             message.train.datacite.resourceType.content = config.resourceTypeContent;
 
+
+
             //Train UC03 - Example
             message.train.isAccessConstraintsOk = config.resourceTypeGeneral;
             message.train.hasGeneralRegistryPolicy = config.hasGeneralRegistryPolicy;
@@ -255,58 +259,62 @@ module.exports = function(RED) {
             message.train.aggregationResult = config.aggregationResult;
 
             //======================================================
+            console.log("=============== train setup =================");
+            // msg setup
             msg.message = message;
             msg.message.train = message.train;
             //======================================================
-            var env = repositoryServiceLocator.getEnv();
-            //console.log('env: '+env);
+
+            //Flow setup
+            message.train.flow = new Object();
+            message.train.flow.flowID = node.z;
+            message.train.flow.flowURL='http://'+repositoryServiceLocator.getTMTTestEnv().host+':'+repositoryServiceLocator.getTMTTestEnv().port+'/#flow/'+node.z;
+            message.train.flow.description = msg.message.train.description;
+            //======================================================
+
+            //internalPointer setup
+            if(node.wires!='' && node.wires!=null && node.wires!=undefined){
+                var wires = JSON.stringify(node.wires);
+                wires = wires.replace('[[','');
+                wires = wires.replace(']]','');
+            }
+            message.train.internalPointer = wires;
+            //======================================================
+
+            //======================================================
+            //node id setup
+            node.internalId = "";
+            node.internalId= msg.message.train.internalId;
+            //======================================================
+
+            //======================================================
+            var env = repositoryServiceLocator.getMircroservicesTestEnv();
             var host = env.host;
-            //console.log('host: '+host);
             var port = env.port;
-            //console.log('port: '+port);
 
-            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/'+msg.message.train.internalId, {
-            //console.log("Train.js First Call: " +JSON.stringify(msg.message.train));
-            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/'+msg.message.train.internalId, {
 
+            //======================================================
+            //add train
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/', {
                 json: msg.message.train,
             });
             var trainResult =  JSON.parse(res.getBody('utf8'));
             msg.message.train = trainResult;
             //======================================================
 
+            //add nodered metadata
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/trainNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
+                json: node,
+            });
+            var trainNodeResult =  res.getBody('utf8');
+            var internalPointer = trainNodeResult;
+            //======================================================
+
+            msg.trainNode = node;
             node.send(msg);
         });
 
-        //
-        // var getEnv = function (env,type,token){
-        //     var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:8881/ServiceDiscovery/train/service/discovery/'+env+'/'+type+'/'+token);
-        //     var result = res.getBody('utf8');
-        //     return result;
-        // };
-        //
-        // var tmtEnv = JSON.parse(getEnv('TEST','TMT','admin'));
-        // function getInternalId(){
-        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalId');
-        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalId');
-        //     var internalId = res.getBody('utf8');
-        //     return internalId
-        // }
-        //
-        // function getInternalPointer(){
-        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalPointer');
-        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalPointer');
-        //
-        //     var internalPointer = res.getBody('utf8');
-        //     return internalPointer
-        // }
-        //
-        // function getInternalVersion(){
-        //     //var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/InternalVersion');
-        //     var res = request('GET', 'http://127.0.0.1:9091/RepositoryService/train/InternalVersion');
-        //     var internalVersion = res.getBody('utf8');
-        //     return internalVersion
-        // }
+
 
     }
     index++;

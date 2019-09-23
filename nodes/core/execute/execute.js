@@ -13,32 +13,66 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
 
-            //create the clients, call the service and show the result. Finally add all to the result metadata Tracker.
-            //console.log("1: land page customization as index.html of the webdav folder");
-            //console.log("2: Send Files to webdav");
-            //============================================================================================================
-
-            //###################################################
-            // var res = request('POST', 'http://0.0.0.0:80/RepositoryService/train/landpage/customization/webdav/'+msg.message.train.internalId);
-            // var trainResult =  JSON.parse(res.getBody('utf8'));
-            // console.log("### result ==========>>> "+JSON.stringify(trainResult))
-            // msg.message.train = trainResult;
-            //###################################################
-
-            //console.log(" msg: "+JSON.stringify( msg));
-            //console.log(" msg.message: "+JSON.stringify( msg.message));
-            //console.log(" msg.message.train: "+JSON.stringify( msg.message.train));
-            //console.log(" msg.message.train.wagons: "+JSON.stringify( msg.message.train.wagons));
 
 
 
-            //var res = request('POST', 'http://menzel.informatik.rwth-aachen.de:9091/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
-            var res = request('POST', 'http://'+repositoryServiceLocator.getEnv().host+':'+repositoryServiceLocator.getEnv().port+'/RepositoryService/train/add/artifacts/webdav/'+msg.message.train.internalId);
+            //======================================================
+            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var host = env.host;
+            var port = env.port;
+            //======================================================
+
+
+
+
+            //======================================================
+            //Retrieve Train
+            console.log(" ========== Retrieve Train =============");
+            var res = request('GET', 'http://'+host+':'+port+'/RepositoryService/train/'+msg.message.train.internalId);
             var trainResult =  JSON.parse(res.getBody('utf8'));
-            //console.log("### result ==========>>> "+JSON.stringify(trainResult))
-
-
             msg.message.train = trainResult;
+            //console.log("trainResult  ===> "+ trainResult);
+            //======================================================
+            //======================================================
+            //Add Artifacts To webdav
+
+            console.log(" ========== Artifacts To webdav =============");
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/webdav/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
+                json: msg.message.train,
+            });
+            var webdavResult =  JSON.parse(res.getBody('utf8'));
+            var booleanWebdavResult = webdavResult;
+            //======================================================
+
+            //======================================================
+            //Add Landpage
+
+            console.log(" ========== Landpage To webdav =============");
+            //console.log(":::::::::::::===> msg.message.train: "+msg.message.train);
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/landpage/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
+                json: msg.message.train,
+            });
+            var landpageResult =  JSON.parse(res.getBody('utf8'));
+            var booleanResult = landpageResult;
+            //console.log(":::::::::::::===> booleanResult: "+booleanResult);
+            //======================================================
+
+
+            //======================================================
+            //Wrap Objects
+            console.log(" ========== wrapper objects =============");
+            console.log(":::::::::::::===> msg.message.train: "+JSON.stringify(msg.message.train));
+            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/wrapper/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
+                json: msg.message.train,
+            });
+            var trainWrapperResult =  JSON.parse(res.getBody('utf8'));
+            msg.message.train = trainWrapperResult;
+            console.log(":::::::::::::===> trainWrapperResult"+trainWrapperResult)
+            //======================================================
+
+
+
+            console.log(" ========== END =============");
             //Train UC03 - Example
             msg.message.train.isAccessConstraintsOk = true;
             msg.message.train.hasGeneralRegistryPolicy = false;
