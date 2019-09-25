@@ -39,13 +39,31 @@ module.exports = function (RED) {
 
                 //internalPointer setup
                 console.log("=============== internalPointer setup =================")
-                if(node.wires!='' && node.wires!=null && node.wires!=undefined){
-                    var wires = JSON.stringify(node.wires);
-                    wires = wires.replace('[[','');
-                    wires = wires.replace(']]','');
-                }
-                artifacts[index].internalPointer = wires;
+                // if(node.wires!='' && node.wires!=null && node.wires!=undefined){
+                //     var wires = JSON.stringify(node.wires);
+                //     wires = wires.replace('[[','');
+                //     wires = wires.replace(']]','');
+                // }
+                // artifacts[index].internalPointer = wires;
                 //======================================================
+
+                //======================================================
+                //internalPointer setup
+                //console.log("=============== internalPointer setup =================");
+                //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
+                //internalPointer setup
+                var wiresStr = JSON.stringify(node.wires);
+                if(wiresStr!='' && wiresStr!=null && wiresStr!=undefined && wiresStr.includes('[') &&
+                    wiresStr.includes(']') && wiresStr.includes('"')){
+                    //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(wiresStr));
+                    wiresStr = wiresStr.replace('[[','');
+                    wiresStr = wiresStr.replace(']]','');
+                    wiresStr = wiresStr.replace(/"/g, "");
+                    artifacts[index].internalPointer = wiresStr;
+                    //console.log("!!!![ 2) wagon:wires ]!!!========>>> "+JSON.stringify(wiresStr));
+                }
+                //console.log("!!!![ 3) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
+
 
                 //======================================================
                 //node id setup
@@ -72,21 +90,32 @@ module.exports = function (RED) {
                 var res = request('POST', 'http://' + host + ':' + port + '/RepositoryService/artifact/add/' + msg.message.train.internalId+'/', {
                     json: artifacts[index],
                 });
-                var artifactsResult = JSON.parse(res.getBody('utf8'));
-                //msg.message.train = artifactsResult;
-                if(artifactsResult!=null || artifactsResult!="" || artifactsResult!=undefined){
-                     msg.message.train = artifactsResult;
+                var result =  JSON.parse(res.getBody('utf8'));
+                if(result!=null || result!="" || result!=undefined){
+                    msg.message.train.artifacts = result;
                 }
 
                 //======================================================
                 //add nodered metadata
+                //console.log("!!!![ 1) msg.message.train.resources ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.message.train.resources));
+                console.log("!!!![ 1) msg.message.train.artifacts.correlationObjectId) ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.message.train.artifacts.correlationObjectId));
+                node.correlationObjectId = artifacts[index].correlationObjectId;
+
+                console.log("!!!![ before call add Wagon: trainNode ]!!!========");
+                node.parentWireId =  [];
+                node.parentWireId.push(msg.resourceNode.id);
+                console.log("!!!![ before addWagonNode Call: msg.resourceNode.id ]!!!========>>> "+JSON.stringify(msg.resourceNode.id));
+                console.log("!!!![ before addWagonNode Call: node.parentWireId ]!!!========>>> "+JSON.stringify(node.parentWireId));
+
+                node.correlationObjectId = msg.message.train.artifacts.correlationObjectId;
+                console.log("!!!![ before addWagonNode Call: msg.message.train.artifacts.correlationObjectId ]!!!========>>> "+JSON.stringify(msg.message.train.artifacts.correlationObjectId));
+                console.log("!!!![ before addWagonNode Call: node.correlationObjectId ]!!!========>>> "+JSON.stringify(node.correlationObjectId));
                 var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/artifactNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
                     json: node,
                 });
                 //======================================================
 
-                node.parentWireId =  [];
-                node.parentWireId.push(msg.resourceNode.id);
+
 
                 //msg.resourceNode = undefined;
                 node.send(msg);

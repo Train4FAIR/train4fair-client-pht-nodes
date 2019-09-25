@@ -61,15 +61,25 @@ module.exports = function(RED) {
             //======================================================
             //Wrap Objects
             console.log(" ========== wrapper objects =============");
-            console.log(":::::::::::::===> msg.message.train: "+JSON.stringify(msg.message.train));
+            //console.log(":::::::::::::===> msg.message.train: "+JSON.stringify(msg.message.train));
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/wrapper/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
                 json: msg.message.train,
             });
             var trainWrapperResult =  JSON.parse(res.getBody('utf8'));
             msg.message.train = trainWrapperResult;
-            console.log(":::::::::::::===> trainWrapperResult"+trainWrapperResult)
+            //console.log(":::::::::::::===> trainWrapperResult"+trainWrapperResult)
             //======================================================
 
+
+            //======================================================
+            //Wrap Objects
+            console.log(" ========== query wrapped train objects =============");
+            //console.log(":::::::::::::===> msg.message.train: "+JSON.stringify(msg.message.train));
+            var res = request('GET', 'http://'+host+':'+port+'/RepositoryService/train/'+msg.message.train.internalId+'/');
+            var freshTrain =  JSON.parse(res.getBody('utf8'));
+            msg.message.train = freshTrain;
+            //console.log(":::::::::::::===> trainWrapperResult"+trainWrapperResult)
+            //======================================================
 
 
             console.log(" ========== END =============");

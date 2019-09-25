@@ -8,6 +8,7 @@ Message = {
         internalId:"",
         internalVersion:"",
         internalPointer:"",
+        correlationObjectId:"",
         isAccessConstraintsOk:"",
         hasGeneralRegistryPolicy:"",
         hasEnoughPatientOcurrences:"",
@@ -158,6 +159,7 @@ Message = {
                 cutValue:"",
                 shouldBeAggregated:"",
                 internalPointer:"",
+                correlationObjectId:"",
                 accessConstraints:{
                     patientRegistry:"",
                     severity:"",
@@ -171,6 +173,7 @@ Message = {
                             name: "",
                             description: "",
                             internalPointer:"",
+                            correlationObjectId:"",
                             artifacts:
                                 [
                                     {
@@ -181,7 +184,8 @@ Message = {
                                         checksum: "",
                                         fileUrl: "",
                                         extension:"",
-                                        internalPointer:""
+                                        internalPointer:"",
+                                        correlationObjectId:"",
                                     }
                                 ],
                             oci: {
@@ -211,7 +215,7 @@ Message = {
                     stationProfile:[{}]
                 },
             }
-            ],
+        ],
         similarProjects:[],
         flow:{
             flowID:"",

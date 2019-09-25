@@ -43,6 +43,15 @@ module.exports = function(RED) {
 
 
         this.on('input', function(msg) {
+            //======================================================
+            // console.log(index+") =============== trainNode at wagon =================");
+            // console.log("!!!![ 1) msg.trainNode ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.trainNode));
+            // console.log("!!!![ 1) msg.trainNode.id ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.trainNode.id));
+
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.trainNode.id);
+            // console.log(index+") =============== node.parentWireId: wagon ================="+JSON.stringify(node.parentWireId));
+            // console.log(index+") =============== wagon Node =================");
 
             //======================================================
             var wagons = [];
@@ -76,14 +85,23 @@ module.exports = function(RED) {
 
 
             //======================================================
-
             //internalPointer setup
-            if(node.wires!='' && node.wires!=null && node.wires!=undefined){
-                var wires = JSON.stringify(node.wires);
-                wires = wires.replace('[[','');
-                wires = wires.replace(']]','');
+            //console.log("=============== internalPointer setup =================");
+            //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
+            //internalPointer setup
+            var wiresStr = JSON.stringify(node.wires);
+            if(wiresStr!='' && wiresStr!=null && wiresStr!=undefined && wiresStr.includes('[') &&
+                wiresStr.includes(']') && wiresStr.includes('"')){
+                //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(wiresStr));
+                wiresStr = wiresStr.replace('[[','');
+                wiresStr = wiresStr.replace(']]','');
+                wiresStr = wiresStr.replace(/"/g, "");
+                wagons[index].internalPointer = wiresStr;
+                //console.log("!!!![ 2) wagon:wires ]!!!========>>> "+JSON.stringify(wiresStr));
             }
-            wagons[index].internalPointer = wires;
+            //console.log("!!!![ 3) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
+
+
             //======================================================
 
             //======================================================
@@ -102,7 +120,7 @@ module.exports = function(RED) {
 
 
             //======================================================
-            console.log("=============== wagon setup =================");
+            //console.log("=============== wagon setup =================");
             //Wagon setup
             msg.message.train.wagons = wagons[index];
 
@@ -118,18 +136,24 @@ module.exports = function(RED) {
             }
 
             //======================================================
+            console.log("!!!![ before call add Wagon: trainNode ]!!!========");
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.trainNode.id);
+            console.log("!!!![ before addWagonNode Call: msg.trainNode.id ]!!!========>>> "+JSON.stringify(msg.trainNode.id));
+            console.log("!!!![ before addWagonNode Call: node.parentWireId ]!!!========>>> "+JSON.stringify(node.parentWireId));
 
             //add nodered metadata
+            node.correlationObjectId = msg.message.train.wagons.correlationObjectId;
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagonNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
                 json: node,
             });
             //======================================================
-            node.parentWireId =  [];
-            node.parentWireId.push(msg.trainNode.id);
+
+
 
 
             msg.wagonNode = node;
-            //msg.trainNode = undefined;
+            console.log("!!!![ brefore send wagon msg: msg.wagonNode ]!!!========>>> "+JSON.stringify(msg.wagonNode));
             node.send(msg);
         });
     }

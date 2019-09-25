@@ -135,9 +135,9 @@ module.exports = function(RED) {
 
         this.on('input', function(msg) {
 
-            console.log("flowContext: "+flowContext)
-            console.log("global "+global);
-            flowContext.set("trainNode",node);
+            // console.log("flowContext: "+flowContext)
+            // console.log("global "+global);
+            // flowContext.set("trainNode",node);
             // Train Core
             message = new Object();
             message.train = new Object();
@@ -303,10 +303,16 @@ module.exports = function(RED) {
             //======================================================
 
             //add nodered metadata
+            console.log("!!!!! ======= add nodered metadata !!!!! =======");
+            //console.log("!!!!! =======> "+JSON.stringify(msg.message.train));
+            //console.log("!!!!! =======> "+JSON.stringify(msg.message.train.correlationObjectId));
+            node.correlationObjectId = msg.message.train.correlationObjectId;
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/trainNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
                 json: node,
             });
+            res.getBody('utf8');
             var trainNodeResult =  res.getBody('utf8');
+            console.log("!!!!! res.getBody('utf8') =======> "+JSON.stringify(res.getBody('utf8')));
             var internalPointer = trainNodeResult;
             //======================================================
 
