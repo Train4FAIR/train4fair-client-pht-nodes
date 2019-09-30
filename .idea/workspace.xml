@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/execute/execute.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/execute/execute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/train.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,11 +15,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/train/train.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="319" column="122" selection-start-line="319" selection-start-column="122" selection-end-line="319" selection-end-column="122" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -188,7 +194,6 @@
         <option value="$PROJECT_DIR$/nodes/core/train/util/trainutil.js" />
         <option value="$PROJECT_DIR$/nodes/core/train/train.html" />
         <option value="$PROJECT_DIR$/nodes/core/train/dialog/draftdoi.html" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js" />
         <option value="$PROJECT_DIR$/nodes/core/wagon/wagon.js" />
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.js" />
@@ -198,6 +203,7 @@
         <option value="$PROJECT_DIR$/nodes/core/execute/execute.js" />
         <option value="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" />
         <option value="$PROJECT_DIR$/nodes/core/train/train.js" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -367,22 +373,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563640941694</updated>
-      <workItem from="1563640942987" duration="236629000" />
+      <workItem from="1563640942987" duration="236996000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236629000" />
+    <option name="totallyTimeSpent" value="236996000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1420" height="837" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32094353" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.32094353" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.357047" />
+      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.357047" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
@@ -476,13 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
@@ -570,6 +569,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="319" column="122" selection-start-line="319" selection-start-column="122" selection-end-line="319" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
         </state>
       </provider>
     </entry>
