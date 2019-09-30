@@ -1,10 +1,11 @@
 module.exports = function(RED) {
     console.log("Starting Wagon Node");
     'use strict';
-
+    var trainUtil = require("../train/util/TrainUtil.js");
     var message = require('../lib/model/Message.js');
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
+    var alert = require('alert-node');
     var index = -1;
 
     function WagonNode(config) {
@@ -43,17 +44,9 @@ module.exports = function(RED) {
 
 
         this.on('input', function(msg) {
-            //======================================================
-            // console.log(index+") =============== trainNode at wagon =================");
-            // console.log("!!!![ 1) msg.trainNode ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.trainNode));
-            // console.log("!!!![ 1) msg.trainNode.id ]!!!========>>> "+index+" ==>"+JSON.stringify(msg.trainNode.id));
-
             node.parentWireId =  [];
             node.parentWireId.push(msg.trainNode.id);
-            // console.log(index+") =============== node.parentWireId: wagon ================="+JSON.stringify(node.parentWireId));
-            // console.log(index+") =============== wagon Node =================");
 
-            //======================================================
             var wagons = [];
             wagons[index] = new Object();
             wagons[index].name = config.name;
@@ -80,42 +73,13 @@ module.exports = function(RED) {
             wagons[index].accessConstraints.treatmentCenter = config.treatmentCenter;
             wagons[index].accessConstraints.restrictionsOnPersonalData = config.restrictionsOnPersonalData;
             //UC03 - end
-            //======================================================
 
 
-
-            //======================================================
-            //internalPointer setup
-            //console.log("=============== internalPointer setup =================");
-            //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
-            //internalPointer setup
-            var wiresStr = JSON.stringify(node.wires);
-            if(wiresStr!='' && wiresStr!=null && wiresStr!=undefined && wiresStr.includes('[') &&
-                wiresStr.includes(']') && wiresStr.includes('"')){
-                //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(wiresStr));
-                wiresStr = wiresStr.replace('[[','');
-                wiresStr = wiresStr.replace(']]','');
-                wiresStr = wiresStr.replace(/"/g, "");
-                wagons[index].internalPointer = wiresStr;
-                //console.log("!!!![ 2) wagon:wires ]!!!========>>> "+JSON.stringify(wiresStr));
-            }
-            //console.log("!!!![ 3) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
-
-
-            //======================================================
-
-            //======================================================
-            //node id setup
-            node.internalId = "";
-            node.internalId= msg.message.train.internalId;
-            //======================================================
 
             //======================================================
             var env = repositoryServiceLocator.getMircroservicesTestEnv();
             var host = env.host;
             var port = env.port;
-
-
             //======================================================
 
 
@@ -126,24 +90,48 @@ module.exports = function(RED) {
 
 
             //======================================================
+            //setup internal variables
+            console.log(index+"!!!![ add nodered metadata : parentWireId, internalId and internalPointer ]!!!========");
+            //======================================================
+            if((node.wires==null || node.wires.length==0)||(((node.wires.length==1) && (node.wires[0]==null ||node.wires[0].length==0)))){
+                console.log("5: Fail to save the Wagon: "+msg.message.train.wagons.name+". Please verify your Workflow, at least one Resource node should be associated to the Wagon node");
+            }
+
+
+            msg.message.train.wagons.internalPointer = trainUtil.convertWiresArrayToString(node.wires);
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.trainNode.id);
+            node.internalId= msg.message.train.internalId;
+            if((wagons[index].internalPointer==null || wagons[index].internalPointer=="" || wagons[index].internalPointer==undefined)||
+                (node.parentWireId==null || node.parentWireId.length==0 || node.parentWireId==undefined) ||
+                (node.internalId==null || node.internalId=="" || node.internalId==undefined)){
+
+                console.log("6: Fail to save the Wagon: "+msg.message.train.wagons.name+". Please verify your Workflow: ");
+
+            }
+            //======================================================
             //add wagon
+            msg.message.train.wagons.internalId = msg.message.train.internalId;
+            //msg.message.train.wagons.internalPointer = msg.message.train.internalPointer;
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagon/add/'+msg.message.train.internalId+'/', {
                 json: wagons[index],
             });
             var wagonsResult =  JSON.parse(res.getBody('utf8'));
             if(wagonsResult!=null || wagonsResult!="" || wagonsResult!=undefined){
                 msg.message.train.wagons = wagonsResult;
+            }else{
+                console.log("7: Fail to save the Wagon: "+msg.message.train.wagons.name+". Please verify your Workflow: ");
             }
 
-            //======================================================
-            console.log("!!!![ before call add Wagon: trainNode ]!!!========");
-            node.parentWireId =  [];
-            node.parentWireId.push(msg.trainNode.id);
-            console.log("!!!![ before addWagonNode Call: msg.trainNode.id ]!!!========>>> "+JSON.stringify(msg.trainNode.id));
-            console.log("!!!![ before addWagonNode Call: node.parentWireId ]!!!========>>> "+JSON.stringify(node.parentWireId));
-
-            //add nodered metadata
             node.correlationObjectId = msg.message.train.wagons.correlationObjectId;
+
+            if((node.correlationObjectId==null || node.correlationObjectId=="" || node.correlationObjectId==undefined)){
+                console.log("8: Fail to save the Wagon: "+msg.message.train.wagons.name+". Please verify your Workflow: ");
+            }
+
+            node.internalId = msg.message.train.internalId;
+            node.internalPointer = msg.message.train.wagons.internalPointer;
+            //======================================================
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagonNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
                 json: node,
             });
@@ -153,7 +141,6 @@ module.exports = function(RED) {
 
 
             msg.wagonNode = node;
-            console.log("!!!![ brefore send wagon msg: msg.wagonNode ]!!!========>>> "+JSON.stringify(msg.wagonNode));
             node.send(msg);
         });
     }

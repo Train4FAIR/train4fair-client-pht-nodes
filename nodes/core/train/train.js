@@ -1,8 +1,11 @@
 module.exports = function(RED) {
 
+    var trainUtil = require("./util/TrainUtil.js");
     var message = require('../lib/model/Message.js');
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
+    var alert = require('alert-node');
+
     var index = 0;
 
     function TrainNode(config) {
@@ -20,7 +23,7 @@ module.exports = function(RED) {
         message.train.userToken = config.userToken;
         message.train.internalId = repositoryServiceLocator.getInternalId();
         message.train.internalVersion = repositoryServiceLocator.getInternalVersion();
-        message.train.internalPointer = repositoryServiceLocator.getInternalPointer();
+        message.train.internalPointer = "";
 
         //Train DataCite Core
         message.train.datacite = new Object();
@@ -139,6 +142,8 @@ module.exports = function(RED) {
             // console.log("global "+global);
             // flowContext.set("trainNode",node);
             // Train Core
+
+            console.log("Train init");
             message = new Object();
             message.train = new Object();
             message.train.name = config.name;
@@ -273,12 +278,10 @@ module.exports = function(RED) {
             //======================================================
 
             //internalPointer setup
-            if(node.wires!='' && node.wires!=null && node.wires!=undefined){
-                var wires = JSON.stringify(node.wires);
-                wires = wires.replace('[[','');
-                wires = wires.replace(']]','');
+            if(node.wires==null || node.wires.length==0 || (node.wires.length==1 && (node.wires[0]==null ||node.wires[0].length==0))){
+                console.log("1: Fail to save the Train: "+message.train[index].name+". Please verify your Workflow. One Wagon node should be associated to the Train node");
             }
-            message.train.internalPointer = wires;
+            msg.message.train.internalPointer = trainUtil.convertWiresArrayToString(node.wires);
             //======================================================
 
             //======================================================
@@ -294,30 +297,128 @@ module.exports = function(RED) {
 
 
             //======================================================
+            //get datacite identifier
+            var options = {
+                headers: {
+                    'content-type': 'application/vnd.api+json',
+                    authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
+                },
+                body: '{"data":{"type":"dois","attributes":{"prefix":"10.20408"}}}'
+            };
+
+            var res = request('POST','https://api.test.datacite.org/dois',options);
+            var draftDoi =  JSON.parse(res.getBody('utf8'));
+            if(draftDoi==null || draftDoi==="" || draftDoi==undefined){
+                console.log("2: Fail to obtain the datacite Identifier. Please contact the Train Modelling Tool Support!");
+            }
+
+            var prefix = draftDoi.data.attributes.prefix;
+            var suffix = draftDoi.data.attributes.suffix;
+            var doiHandlerWebPage = "https://doi.test.datacite.org/dois/"+prefix+"%"+suffix+"/";
+            var identifier = prefix+"/"+suffix;
+            alert("A new Identifier was generated: "+identifier);
+            console.log("The Identifier URL at datacite is: "+doiHandlerWebPage);
+
+            //TODO: Back to this point to change alerts for popups
+            //trainUtil.showNewIdentifierDialog(identifier,doiHandlerWebPage);
+            //======================================================
+
+            // set Identifier
+            message.train.datacite.identifier.identifierType = "DOI";
+            message.train.datacite.identifier.content = identifier;
+            message.train.datacite.identifier.providerURL = doiHandlerWebPage;
+            message.train.datacite.identifier.prefix = prefix;
+            message.train.datacite.identifier.suffix = suffix;
+
+            //======================================================
             //add train
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/', {
                 json: msg.message.train,
             });
             var trainResult =  JSON.parse(res.getBody('utf8'));
-            msg.message.train = trainResult;
+            if(trainResult!=null || trainResult!="" || trainResult!=undefined){
+                msg.message.train = trainResult;
+            }else{
+                console.log("3: Fail to save the Train: "+msg.message.train.name+". Please verify your Workflow: ");
+            }
             //======================================================
 
             //add nodered metadata
             console.log("!!!!! ======= add nodered metadata !!!!! =======");
-            //console.log("!!!!! =======> "+JSON.stringify(msg.message.train));
-            //console.log("!!!!! =======> "+JSON.stringify(msg.message.train.correlationObjectId));
+            node.internalId = msg.message.train.internalId;
+            node.internalPointer = msg.message.train.internalPointer;
             node.correlationObjectId = msg.message.train.correlationObjectId;
+            if((node.correlationObjectId==null || node.correlationObjectId=="" || node.correlationObjectId==undefined)){
+                console.log("4: Fail to save the Train: "+msg.message.train.name+". Please verify your Workflow: ");
+            }
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/trainNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
                 json: node,
             });
-            res.getBody('utf8');
-            var trainNodeResult =  res.getBody('utf8');
-            console.log("!!!!! res.getBody('utf8') =======> "+JSON.stringify(res.getBody('utf8')));
-            var internalPointer = trainNodeResult;
             //======================================================
+
+
+            //set doi object from datacite
+            draftDoi.data.attributes.creators = message.train.datacite.creators;
+            draftDoi.data.attributes.titles = message.train.datacite.titles;
+            draftDoi.data.attributes.publisher = message.train.datacite.publisher;
+            draftDoi.data.attributes.container = message.train.datacite.container;
+            draftDoi.data.attributes.publicationYear = message.train.datacite.publicationYear;
+            draftDoi.data.attributes.subjects = message.train.datacite.subjects;
+            draftDoi.data.attributes.contributors = message.train.datacite.contributors;
+            //draftDoi.data.attributes.relatedIdentifiers = message.train.datacite.relatedIdentifiers;
+            draftDoi.data.attributes.sizes = message.train.datacite.sizes;
+            draftDoi.data.attributes.formats = message.train.datacite.formats;
+            draftDoi.data.attributes.version = message.train.datacite.version;
+            draftDoi.data.attributes.rightsList = message.train.datacite.rightsList;
+            draftDoi.data.attributes.descriptions = message.train.datacite.descriptions;
+            //draftDoi.data.attributes.geoLocations = message.train.datacite.geoLocations;
+
+
+            //set DOI
+            draftDoi.data.attributes.fundingReferences = message.train.datacite.fundingReferences;
+            //draftDoi.data.attributes.xml = message.train.datacite.xml;
+            draftDoi.data.attributes.url = "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/train/"+message.train.internalId+"/"+message.train.internalVersion+"/";
+            draftDoi.data.attributes.contentUrl = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId;
+            draftDoi.data.attributes.metadataVersion = 1;
+            draftDoi.data.attributes.schemaVersion = "http://datacite.org/schema/kernel-4";
+            draftDoi.data.attributes.source = "datacite";
+            draftDoi.data.attributes.isActive = true;
+            draftDoi.data.attributes.event = "publish",
+                draftDoi.data.attributes.doi = identifier,
+                //draftDoi.data.attributes.state = "draft";
+                //draftDoi.data.attributes.reason = null;
+                draftDoi.data.attributes.landingPage = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/index.html";
+            draftDoi.data.attributes.fundingReferences = message.train.datacite.fundingReferences;
+            //draftDoi.data.attributes.relationships = message.train.datacite.relationships;
+            //draftDoi.data.attributes.media = message.train.datacite.media;
+            //draftDoi.data.attributes.included.name = "João Bosco Jares MSc.";
+            //draftDoi.data.attributesincluded.contactEmail = "jbjares@gmail.com or joao.bosco.jares.alves.chaves@fit.fraunhofer.de";
+            //draftDoi.data.attributes.included.alternateName = null;
+            //draftDoi.data.attributes.included.description = "A Train FAIR Metadata which aims to improve the FAIR principles as well as the safety and the Deep Learning Parallel workflow execution and processing";
+            //draftDoi.data.attributes.included.fundingReferences = message.train.datacite.fundingReferences;
+
+            //======================================================
+
+            //TODO uncoment
+            // var options = {
+            //     headers: {
+            //         'content-type': 'application/vnd.api+json',
+            //         authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
+            //     },
+            //     body: JSON.stringify(draftDoi),
+            // };
+            // var resDoi = request('POST','https://api.test.datacite.org/dois',options);
+            // var publishedDoi =  JSON.parse(resDoi.getBody('utf8'));
+            // console.log("########====== publishedDoi ==>> "+publishedDoi);
+
+            //======================================================
+            console.log("doi Handler Page: "+doiHandlerWebPage);
+
 
             msg.trainNode = node;
             node.send(msg);
+
+            console.log("Train end");
         });
 
 

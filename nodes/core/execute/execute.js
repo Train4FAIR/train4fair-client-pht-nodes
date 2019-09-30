@@ -14,6 +14,7 @@ module.exports = function(RED) {
         this.on('input', function(msg) {
 
 
+            console.log("!!!!=== msg state at Execute method !!!===>>> "+JSON.stringify(msg));
 
 
             //======================================================

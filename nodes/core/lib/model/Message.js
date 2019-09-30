@@ -17,7 +17,10 @@ Message = {
         datacite:{
             identifier: {
                 identifierType:"",
-                content:""
+                content:"",
+                providerURL:"",
+                prefix:"",
+                suffix:""
             },
             formats:{
                 format:[

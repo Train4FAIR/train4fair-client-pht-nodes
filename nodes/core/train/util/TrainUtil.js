@@ -1,12 +1,20 @@
 'use strict';
-var request = require('sync-request');
+var request = require('sync-request/lib/index');
+var $ = require("jquery");
 
 module.exports = {
-
-
-    getMircroservicesTestEnv: function () {
-        var res = request('GET', 'http://menzel.informatik.rwth-aachen.de:8881/ServiceDiscovery/train/service/discovery/TEST/MS/admin');
-        var result = res.getBody('utf8');
-        return JSON.parse(result);
+    showNewIdentifierDialog: function (identifier,doiHandlerWebPage) {
+        $("#newdraftidentifierdialog").modal();
     },
+
+    convertWiresArrayToString : function(wires){
+        var wiresStr = JSON.stringify(wires);
+        if(wiresStr!='' && wiresStr!=null && wiresStr!=undefined && wiresStr.includes('[') &&
+            wiresStr.includes(']') && wiresStr.includes('"')){
+            wiresStr = wiresStr.replace('[[','');
+            wiresStr = wiresStr.replace(']]','');
+            wiresStr = wiresStr.replace(/"/g, "");
+        }
+        return wiresStr;
+    }
 }

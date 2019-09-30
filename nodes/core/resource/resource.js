@@ -2,8 +2,10 @@ module.exports = function(RED) {
 
     'use strict';
     var message = require('../lib/model/Message.js');
+    var trainUtil = require("../train/util/TrainUtil.js");
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
+    var alert = require('alert-node');
     var index = -1;
 
     function ResourceNode(config) {
@@ -73,38 +75,33 @@ module.exports = function(RED) {
 
             //======================================================
 
-            //internalPointer setup
-            // if(node.wires!='' && node.wires!=null && node.wires!=undefined){
-            //     var wires = JSON.stringify(node.wires);
-            //     wires = wires.replace('[[','');
-            //     wires = wires.replace(']]','');
-            // }
-            // resources[index].internalPointer = wires;
             //======================================================
+            console.log("=============== resources setup =================");
+            //resources setup
+            msg.message.train.resources = resources[index];
 
             //======================================================
-            //internalPointer setup
-            //console.log("=============== internalPointer setup =================");
-            //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
-            //internalPointer setup
-            var wiresStr = JSON.stringify(node.wires);
-            if(wiresStr!='' && wiresStr!=null && wiresStr!=undefined && wiresStr.includes('[') &&
-                wiresStr.includes(']') && wiresStr.includes('"')){
-                //console.log("!!!![ 1) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(wiresStr));
-                wiresStr = wiresStr.replace('[[','');
-                wiresStr = wiresStr.replace(']]','');
-                wiresStr = wiresStr.replace(/"/g, "");
-                resources[index].internalPointer = wiresStr;
-                //console.log("!!!![ 2) wagon:wires ]!!!========>>> "+JSON.stringify(wiresStr));
+            //setup internal variables
+            console.log("!!!![ add environment metadata : parentWireId, internalId and internalPointer ]!!!========");
+
+            if(node.wires==null || node.wires.length==0 || (node.wires.length==1 && (node.wires[0]==null ||node.wires[0].length==0))){
+                console.log("13: Fail to save the Resource: "+resources[index].name+". Please verify your Workflow, at least one Artifact node should be associated to the Resource node");
             }
-            //console.log("!!!![ 3) wagons[index].internalPointer ]!!!========>>> "+JSON.stringify(node.wires));
 
-
-            //======================================================
-            //node id setup
-            node.internalId = "";
             node.internalId= msg.message.train.internalId;
+            msg.message.train.resources.internalPointer = trainUtil.convertWiresArrayToString(node.wires);
+            node.parentWireId =  [];
+            node.parentWireId.push(msg.wagonNode.id);
+
+
+            if((msg.message.train.resources.internalPointer==null || msg.message.train.resources.internalPointer=="" || msg.message.train.resources.internalPointer==undefined)||
+                (node.parentWireId==null || node.parentWireId.length==0 || node.parentWireId==undefined) ||
+                (node.internalId==null || node.internalId=="" || node.internalId==undefined)){
+                console.log("14: Fail to save the Resource: "+resources[index].name+". Please verify your Workflow: ");
+
+            }
             //======================================================
+
 
             //======================================================
             var env = repositoryServiceLocator.getMircroservicesTestEnv();
@@ -115,29 +112,30 @@ module.exports = function(RED) {
             //======================================================
 
 
-            //======================================================
-            console.log("=============== resources setup =================");
-            //resources setup
-            msg.message.train.resources = resources[index];
+
 
             //======================================================
             //add Resource
+            msg.message.train.resources.internalId = msg.message.train.internalId;
+            msg.message.train.resources.internalPointer = msg.message.train.resources.internalPointer;
             var res = request('POST','http://'+host+':'+port+'/RepositoryService/resource/add/'+msg.message.train.internalId+'/', {
                 json: resources[index],
             });
             var result =  JSON.parse(res.getBody('utf8'));
             if(result!=null || result!="" || result!=undefined){
                 msg.message.train.resources = result;
+            }else{
+                console.log("16: Fail to save the Resource: "+msg.message.train.resources.name+". Please verify your Workflow: ");
+            }
+
+            node.correlationObjectId = msg.message.train.resources.correlationObjectId;
+            if((node.correlationObjectId==null || node.correlationObjectId=="" || node.correlationObjectId==undefined)){
+                console.log("15: Fail to save the Resource: "+msg.message.train.resources.name+". Please verify your Workflow: ");
             }
             //======================================================
-            console.log("!!!![ before call add Resource: trainNode ]!!!========");
-            node.parentWireId =  [];
-            node.parentWireId.push(msg.wagonNode.id);
-            console.log("!!!![ before addResourceNode Call: msg.trainNode.id ]!!!========>>> "+JSON.stringify(msg.wagonNode.id));
-            console.log("!!!![ before addResourceNode Call: node.parentWireId ]!!!========>>> "+JSON.stringify(node.parentWireId));
-
             //add nodered metadata
-            node.correlationObjectId = msg.message.train.resources.correlationObjectId;
+            node.internalId = msg.message.train.internalId;
+            node.internalPointer = msg.message.train.internalPointer;
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/resourceNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
                 json: node,
             });
@@ -145,7 +143,6 @@ module.exports = function(RED) {
 
 
             msg.resourceNode = node;
-            console.log("!!!![ brefore send resource msg: msg.resourceNode ]!!!========>>> "+JSON.stringify(msg.resourceNode));
             node.send(msg);
         });
     }
