@@ -46,17 +46,6 @@ module.exports = function(RED) {
             //======================================================
 
             //======================================================
-            //Add Landpage
-
-            console.log(" ========== Landpage To webdav =============");
-            //console.log(":::::::::::::===> msg.message.train: "+msg.message.train);
-            var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/landpage/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion+'/', {
-                json: msg.message.train,
-            });
-            var landpageResult =  JSON.parse(res.getBody('utf8'));
-            var booleanResult = landpageResult;
-            //console.log(":::::::::::::===> booleanResult: "+booleanResult);
-            //======================================================
 
 
             //======================================================

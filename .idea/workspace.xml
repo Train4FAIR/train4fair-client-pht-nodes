@@ -3,19 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="41d6bd0e-78b8-4763-88af-4746459b9f30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/artifact/artifact.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/execute/execute.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/execute/execute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/lib/model/DOI.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/lib/model/DOI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/lib/model/Message.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/lib/model/Message.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/resource/resource.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/resource/resource.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/dialog/draftdoi.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/dialog/draftdoi.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/train/train.html" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/train/train.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/train.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" beforeDir="false" afterPath="$PROJECT_DIR$/nodes/core/wagon/wagon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -28,20 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nodes/core/train/train.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="42" />
+            <state relative-caret-position="240">
+              <caret line="319" column="122" selection-start-line="319" selection-start-column="122" selection-end-line="319" selection-end-column="122" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nodes/core/train/train.js">
+        <entry file="file://$PROJECT_DIR$/nodes/core/lib/model/Message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="347" column="12" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="59" />
+            <state relative-caret-position="143">
+              <caret line="134" column="16" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -49,7 +39,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="750">
+            <state relative-caret-position="249">
               <caret line="50" column="84" lean-forward="true" selection-start-line="50" selection-start-column="84" selection-end-line="50" selection-end-column="107" />
             </state>
           </provider>
@@ -58,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-401">
-              <caret line="16" column="91" selection-start-line="16" selection-start-column="91" selection-end-line="16" selection-end-column="91" />
+            <state relative-caret-position="203">
+              <caret line="72" selection-start-line="72" selection-end-line="72" />
             </state>
           </provider>
         </entry>
@@ -82,10 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
+            <state relative-caret-position="57">
               <caret line="131" column="12" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="59" />
             </state>
           </provider>
@@ -94,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="29" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="29" />
+            <state relative-caret-position="71">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -126,32 +116,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nodes/core/train/dialog/draftdoi.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-              <folding>
-                <element signature="n#style#0;n#h3#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#h3#0;n#!!top" expanded="true" />
-                <element signature="e#94#100#0" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#span#0;n#h3#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#h3#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#span#1;n#h3#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#span#1;n#h3#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h4#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#h4#0;n#!!top" expanded="true" />
-                <element signature="e#469#475#0" expanded="true" />
-                <element signature="e#522#528#1" expanded="true" />
-                <element signature="n#style#0;n#h2#0;n#!!top" expanded="true" />
-                <element signature="e#561#567#1" expanded="true" />
-                <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
-                <element signature="e#659#665#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -164,36 +128,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>msg.trainNode.id ]!!!========&gt;&gt;&gt;</find>
-      <find>trainLandpageResult</find>
-      <find>titles</find>
-      <find>container</find>
-      <find>relatedIdentifiers</find>
-      <find>metadataVersion</find>
-      <find>schemaVersion</find>
-      <find>source</find>
-      <find>relationships</find>
-      <find>contactEmail</find>
-      <find>msg.train.name</find>
-      <find>alternateName</find>
-      <find>wagons</find>
-      <find>draftDo</find>
-      <find>((node.wires.length==1 &amp;&amp; (node.wires[0]==null ||node.wires[0].length==0))):</find>
-      <find>Please verify your Workflow, at least one Resource node should be associated to the Wagon node</find>
-      <find>return;</find>
-      <find>node.correlationObjectId = msg.message.train.resources.correlationObjectId;</find>
-      <find>alert</find>
-      <find>//alert</find>
-      <find>console.log(&quot;Fail</find>
-      <find>correlationObjectId</find>
-      <find>console.log(&quot;16: Fail</find>
-      <find>internalId</find>
       <find>5d8d6494ca9082d456874b9d</find>
       <find>if((internalPointer==null || internalPointer==&quot;&quot; || internalPointer==undefined)||</find>
       <find>14</find>
       <find>convertWiresArrayToString</find>
-      <find>internalPointer</find>
       <find>msg.message.train</find>
+      <find>internalPointer</find>
+      <find>/train/landpage/</find>
+      <find>title</find>
+      <find>identifier</find>
+      <find>creators</find>
+      <find>titleType</find>
+      <find>publisher</find>
+      <find>publicationYear</find>
+      <find>subjectScheme</find>
+      <find>message.train.datacite.subjects.subject</find>
+      <find>contributors</find>
+      <find>nameType</find>
+      <find>message.train.datacite.contributors.contributor</find>
+      <find>resourceTypeGeneral</find>
+      <find>relatedIdentifiers</find>
+      <find>sizes</find>
+      <find>formats</find>
+      <find>version</find>
+      <find>rightsList</find>
+      <find>descriptions</find>
+      <find>fundingReferences</find>
+      <find>content</find>
+      <find>alert</find>
+      <find>givenName</find>
+      <find>message.train.datacite.contributors.contributor[index].givenName</find>
     </findStrings>
     <replaceStrings>
       <replace>console.log</replace>
@@ -225,13 +189,15 @@
         <option value="$PROJECT_DIR$/nodes/core/train/train.html" />
         <option value="$PROJECT_DIR$/nodes/core/train/dialog/draftdoi.html" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" />
-        <option value="$PROJECT_DIR$/nodes/core/execute/execute.js" />
         <option value="$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js" />
-        <option value="$PROJECT_DIR$/nodes/core/train/train.js" />
         <option value="$PROJECT_DIR$/nodes/core/wagon/wagon.js" />
         <option value="$PROJECT_DIR$/nodes/core/resource/resource.js" />
         <option value="$PROJECT_DIR$/nodes/core/artifact/artifact.js" />
+        <option value="$PROJECT_DIR$/nodes/core/train/util/landingpage.js" />
+        <option value="$PROJECT_DIR$/nodes/core/train/util/landingpage.html" />
+        <option value="$PROJECT_DIR$/nodes/core/execute/execute.js" />
+        <option value="$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js" />
+        <option value="$PROJECT_DIR$/nodes/core/train/train.js" />
       </list>
     </option>
   </component>
@@ -340,13 +306,6 @@
               <item name="train" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="node-red-contrib-train-nodeset" type="b2602c69:ProjectViewProjectNode" />
-              <item name="node-red-contrib-train-nodeset" type="462c0819:PsiDirectoryNode" />
-              <item name="nodes" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="wagon" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -388,6 +347,16 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="landingpage.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/node-red-contrib-train-nodeset/nodes/core/train/util/landingpage.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.landingpage.html" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -398,21 +367,22 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1563640941694</updated>
-      <workItem from="1563640942987" duration="215736000" />
+      <workItem from="1563640942987" duration="236629000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215736000" />
+    <option name="totallyTimeSpent" value="236629000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="23" width="1420" height="837" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.32094353" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.35436243" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.357047" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info anchor="bottom" id="Message" order="4" />
@@ -468,13 +438,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/lib/model/Message.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="20" selection-start-line="20" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/lib/model/DOI.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -520,6 +483,58 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="119" column="102" selection-start-line="119" selection-start-column="102" selection-end-line="119" selection-end-column="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/artifact/artifact.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-244">
+          <caret line="79" column="105" selection-start-line="79" selection-start-column="105" selection-end-line="79" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="131" column="12" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/train/util/landingpage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" selection-end-line="22" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/train/util/landingpage.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/lib/model/Message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="134" column="16" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="50" column="84" lean-forward="true" selection-start-line="50" selection-start-column="84" selection-end-line="50" selection-end-column="107" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/train/train.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -544,52 +559,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/execute/execute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-401">
-          <caret line="16" column="91" selection-start-line="16" selection-start-column="91" selection-end-line="16" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/lib/util/RepositoryService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="50" column="84" lean-forward="true" selection-start-line="50" selection-start-column="84" selection-end-line="50" selection-end-column="107" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/train/util/TrainUtil.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="29" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/resource/resource.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="119" column="102" selection-start-line="119" selection-start-column="102" selection-end-line="119" selection-end-column="102" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/artifact/artifact.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-244">
-          <caret line="79" column="105" selection-start-line="79" selection-start-column="105" selection-end-line="79" selection-end-column="105" />
+        <state relative-caret-position="71">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/nodes/core/train/train.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="347" column="12" selection-start-line="347" selection-start-column="12" selection-end-line="347" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodes/core/wagon/wagon.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="131" column="12" lean-forward="true" selection-start-line="131" selection-start-column="12" selection-end-line="131" selection-end-column="59" />
+        <state relative-caret-position="240">
+          <caret line="319" column="122" selection-start-line="319" selection-start-column="122" selection-end-line="319" selection-end-column="122" />
         </state>
       </provider>
     </entry>

@@ -279,7 +279,7 @@ module.exports = function(RED) {
 
             //internalPointer setup
             if(node.wires==null || node.wires.length==0 || (node.wires.length==1 && (node.wires[0]==null ||node.wires[0].length==0))){
-                console.log("1: Fail to save the Train: "+message.train[index].name+". Please verify your Workflow. One Wagon node should be associated to the Train node");
+                console.log("1: Fail to save the Train: "+message.train.name+". Please verify your Workflow. One Wagon node should be associated to the Train node");
             }
             msg.message.train.internalPointer = trainUtil.convertWiresArrayToString(node.wires);
             //======================================================
@@ -295,7 +295,7 @@ module.exports = function(RED) {
             var host = env.host;
             var port = env.port;
 
-
+            var landingpage = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/index.html";
             //======================================================
             //get datacite identifier
             var options = {
@@ -303,7 +303,8 @@ module.exports = function(RED) {
                     'content-type': 'application/vnd.api+json',
                     authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
                 },
-                body: '{"data":{"type":"dois","attributes":{"prefix":"10.20408"}}}'
+                body: trainUtil.getBodyToCreateAnewFindableDOI(config.creatorContent
+                    ,config.titleContent,config.publisher,config.publicationYear,landingpage)
             };
 
             var res = request('POST','https://api.test.datacite.org/dois',options);
@@ -314,9 +315,9 @@ module.exports = function(RED) {
 
             var prefix = draftDoi.data.attributes.prefix;
             var suffix = draftDoi.data.attributes.suffix;
-            var doiHandlerWebPage = "https://doi.test.datacite.org/dois/"+prefix+"%"+suffix+"/";
+            var doiHandlerWebPage = "https://api.test.datacite.org/dois/"+prefix+"/"+suffix;
             var identifier = prefix+"/"+suffix;
-            alert("A new Identifier was generated: "+identifier);
+            alert("A new Identifier was generated: "+identifier+".\nFor more details follow the link below:\n"+landingpage);
             console.log("The Identifier URL at datacite is: "+doiHandlerWebPage);
 
             //TODO: Back to this point to change alerts for popups
@@ -329,7 +330,9 @@ module.exports = function(RED) {
             message.train.datacite.identifier.providerURL = doiHandlerWebPage;
             message.train.datacite.identifier.prefix = prefix;
             message.train.datacite.identifier.suffix = suffix;
-
+            message.train.datacite.identifier.metadataUrl = "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/train/"+message.train.internalId;
+            message.train.datacite.identifier.resourcesUrl= "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/";
+            message.train.restApiDocUrl =  "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/swagger-ui.html";
             //======================================================
             //add train
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/', {
@@ -357,64 +360,25 @@ module.exports = function(RED) {
             //======================================================
 
 
-            //set doi object from datacite
-            draftDoi.data.attributes.creators = message.train.datacite.creators;
-            draftDoi.data.attributes.titles = message.train.datacite.titles;
-            draftDoi.data.attributes.publisher = message.train.datacite.publisher;
-            draftDoi.data.attributes.container = message.train.datacite.container;
-            draftDoi.data.attributes.publicationYear = message.train.datacite.publicationYear;
-            draftDoi.data.attributes.subjects = message.train.datacite.subjects;
-            draftDoi.data.attributes.contributors = message.train.datacite.contributors;
-            //draftDoi.data.attributes.relatedIdentifiers = message.train.datacite.relatedIdentifiers;
-            draftDoi.data.attributes.sizes = message.train.datacite.sizes;
-            draftDoi.data.attributes.formats = message.train.datacite.formats;
-            draftDoi.data.attributes.version = message.train.datacite.version;
-            draftDoi.data.attributes.rightsList = message.train.datacite.rightsList;
-            draftDoi.data.attributes.descriptions = message.train.datacite.descriptions;
-            //draftDoi.data.attributes.geoLocations = message.train.datacite.geoLocations;
-
-
-            //set DOI
-            draftDoi.data.attributes.fundingReferences = message.train.datacite.fundingReferences;
-            //draftDoi.data.attributes.xml = message.train.datacite.xml;
-            draftDoi.data.attributes.url = "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/train/"+message.train.internalId+"/"+message.train.internalVersion+"/";
-            draftDoi.data.attributes.contentUrl = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId;
-            draftDoi.data.attributes.metadataVersion = 1;
-            draftDoi.data.attributes.schemaVersion = "http://datacite.org/schema/kernel-4";
-            draftDoi.data.attributes.source = "datacite";
-            draftDoi.data.attributes.isActive = true;
-            draftDoi.data.attributes.event = "publish",
-                draftDoi.data.attributes.doi = identifier,
-                //draftDoi.data.attributes.state = "draft";
-                //draftDoi.data.attributes.reason = null;
-                draftDoi.data.attributes.landingPage = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/index.html";
-            draftDoi.data.attributes.fundingReferences = message.train.datacite.fundingReferences;
-            //draftDoi.data.attributes.relationships = message.train.datacite.relationships;
-            //draftDoi.data.attributes.media = message.train.datacite.media;
-            //draftDoi.data.attributes.included.name = "João Bosco Jares MSc.";
-            //draftDoi.data.attributesincluded.contactEmail = "jbjares@gmail.com or joao.bosco.jares.alves.chaves@fit.fraunhofer.de";
-            //draftDoi.data.attributes.included.alternateName = null;
-            //draftDoi.data.attributes.included.description = "A Train FAIR Metadata which aims to improve the FAIR principles as well as the safety and the Deep Learning Parallel workflow execution and processing";
-            //draftDoi.data.attributes.included.fundingReferences = message.train.datacite.fundingReferences;
-
+            //console.log("body =====> "+trainUtil.getBodyToChangeDataciteStatus());
             //======================================================
-
             //TODO uncoment
             // var options = {
             //     headers: {
             //         'content-type': 'application/vnd.api+json',
             //         authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
             //     },
-            //     body: JSON.stringify(draftDoi),
+            //     body: trainUtil.getBodyToChangeDataciteStatus(),
             // };
             // var resDoi = request('POST','https://api.test.datacite.org/dois',options);
             // var publishedDoi =  JSON.parse(resDoi.getBody('utf8'));
-            // console.log("########====== publishedDoi ==>> "+publishedDoi);
+            // console.log("########====== publishedDoi ==>> "+JSON.stringify(publishedDoi));
+
 
             //======================================================
             console.log("doi Handler Page: "+doiHandlerWebPage);
 
-
+            msg.doi = draftDoi;
             msg.trainNode = node;
             node.send(msg);
 
