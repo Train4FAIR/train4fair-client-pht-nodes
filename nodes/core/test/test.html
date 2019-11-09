@@ -1,0 +1,209 @@
+<script type="text/javascript">
+
+    RED.nodes.registerType('Test Node', {
+        category: 'Train4FAIR Nodes',
+        color: '#249ff4',
+        defaults: {
+            <!-- Train Core. -->
+            name: {value: "Check Rare Diseases Train", require: true},
+            description: {value: "Train to Check Rare Diseases Train", require: true},
+            sourceRepository: {value: "Fraunhofer FIT", require: true},
+            userToken: {
+                value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjoiSldUIFJ1bGVzISIsImlhdCI6MTQ1OTQ0ODExOSwiZXhwIjoxNDU5NDU0NTE5fQ.-yIVBD5b73C75osbmwwshQNRC7frWUYrqaTjTpza2y4",
+                require: true
+            },
+
+
+            // internalId: {value:""},
+            // internalTrainId: {value:""},
+            // internalVersion: {value:""},
+            // internalPointer: {value:""},
+            // <!-- Train DataCite Core -->
+            // language: {value:"EN_ENGLISH",require:true},
+            // version: {value:"0.0.1",require:true},
+            // publicationYear: {value:"2019",require:true},
+            // publisher: {value:"DataCite",require:true},
+            // <!-- Train DataCite - Identifier -->
+            // identifierType: {value:"ORCID",require:true},
+            // identifierContent: {value:"https://orcid.org/0000-0001-6066-2602",require:true},
+            // <!-- Train DataCite - Creators -->
+            // creatorAffiliation: {value:"Fraunhofer FIT",require:true},
+            // creatorGivenName: {value:"Joao Bosco Jares",require:true},
+            // creatorFamilyName: {value:"Jares",require:true},
+            // nameType: {value:"PERSONAL",require:true},
+            // creatorContent: {value:"Joao Bosco Jares MSc.",require:true},
+            // creatorNameIdentifierScheme: {value:"ORCID",require:true},
+            // creatorSchemeURI: {value:"http://orcid.org/",require:true},
+            // nameIdentifierContent: {value:"",require:true},
+            // <!-- Train DataCite - Subjects -->
+            // subjectSchemeURI: {value:"http://dewey.info/",require:true},
+            // subjectContent: {value:"Train4FAIR",require:true},
+            // subjectScheme: {value:"dewey",require:true},
+            // <!-- Train DataCite - Dates -->
+            // dateType: {value:"VALID",require:true},
+            // dateInformation: {value:"Presentation Date",require:true},
+            // dateContent: {value:"28/06/2019",require:true},
+            // <!-- Train DataCite - Formats -->
+            // format: {value:"application/json",require:true},
+            // <!-- Train DataCite - RightsList -->
+            // rightsURI: {value:"http://creativecommons.org/publicdomain/zero/1.0/",require:true},
+            // rightsContent: {value:"CC0 1.0 Universal",require:true},
+            // <!-- Train DataCite - Titles -->
+            // titleContent: {value:"Rare Disease Train4FAIR",require:true},
+            // titleType: {value:"OTHER",require:true},
+            // <!-- Train DataCite - Descriptions -->
+            // descriptionType: {value:"OTHER",require:true},
+            // descriptionContent: {value:"This Train aims to check rare disease incidence based on extracted data from multiple stations, preserving the patient's sensitive data.",require:true},
+            // <!-- Train DataCite - Contributors -->
+            // contributorAffiliation: {value:"Frauhofer Fit",require:true},
+            // contributorGivenName: {value:"Yeliz, Dr. Oya and Md. Karim MSc.",require:true},
+            // contributorFamilyName: {value:"Train4FAIR Team",require:true},
+            // contributorType: {value:"OTHER",require:true},
+            // contributorName: {value:"Yeliz Ucer and Oya Deniz Beyan",require:true},
+            // contributorNameIdentifierScheme: {value:"ORCID",require:true},
+            // contributorSchemeURI: {value:"http://orcid.org/",require:true},
+            // contributorContent: {value:"https://orcid.org/0000-0001-6066-2602",require:true},
+            // <!-- Train DataCite - FundingReferences -->
+            // funderName: {value:"Smith Care",require:true},
+            // awardNumber: {value:"000-6687687-678678",require:true},
+            // awardTitle: {value:"Train4FAIR",require:true},
+            // funderIdentifierType: {value:"OTHER",require:true},
+            // fundingReferenceContent: {value:"",require:true},
+            // <!-- Train DataCite - ResourceType -->
+            // resourceTypeGeneral: {value:"application/json"},
+            // resourceTypeContent: {value:"Workflow"}
+
+        },
+        inputs: 0,
+        outputs: 1,
+        //icon: "../icons/test.png",
+
+        label: function () {
+            return "Test Node: " + this.name || "Test Node";
+        },
+
+        button: {
+            enabled: function () {
+                return !this.changed
+            },
+                onclick: function() {
+                    if (this.changed) {
+                        return RED.notify(RED._("notification.warning", {message:RED._("notification.warnings.undeployedChanges")}),"warning");
+                    }
+                    var payload = this.payload;
+                    if ((this.payloadType === 'flow') ||
+                        (this.payloadType === 'global')) {
+                        var key = RED.utils.parseContextKey(payload);
+                        payload = this.payloadType+"."+key.key;
+                    }
+                    var label = this._def.label.call(this);
+                    if (label.length > 30) {
+                        label = label.substring(0,50)+"...";
+                    }
+                    label = label.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+                    var node = this;
+                    $.ajax({
+                        url: "/inject/"+this.id,
+                        type:"POST",
+                        success: function(resp) {
+                            RED.notify(node._("inject.success",{label:label}),{type:"success",id:"inject"});
+                        },
+                        error: function(jqXHR,textStatus,errorThrown) {
+                            if (jqXHR.status == 404) {
+                                RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.not-deployed")}),"error");
+                            } else if (jqXHR.status == 500) {
+                                RED.notify(node._("common.notification.error",{message:node._("inject.errors.failed")}),"error");
+                            } else if (jqXHR.status == 0) {
+                                RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.no-response")}),"error");
+                            } else {
+                                RED.notify(node._("common.notification.error",{message:node._("common.notification.errors.unexpected",{status:jqXHR.status,message:textStatus})}),"error");
+                            }
+                        }
+                    });
+                }
+            },
+            // oneditprepare:{
+            //
+            // },
+
+    });
+</script>
+
+
+
+<style>
+    .inject-time-row {
+        padding-left: 110px;
+    }
+    .inject-time-row select {
+        margin: 3px 0;
+    }
+    .inject-time-days label {
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        vertical-align: baseline;
+        width: 100px;
+    }
+    .inject-time-days input {
+        width: auto;
+        vertical-align: baseline;
+    }
+    .inject-time-times {
+        width: 90px;
+    }
+    #inject-time-time {
+        width: 75px;
+        margin-left: 8px;
+        margin-bottom: 8px;
+    }
+    .inject-time-count {
+        width: 40px !important;
+    }
+
+</style>
+
+
+
+<!-- Train Core -->
+
+
+<script type="text/x-red" data-template-name="Test Node">
+
+
+<fieldset>
+    <legend>Train Core</legend>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i>Name: </label>
+        <input type="text" id="node-input-name" placeholder="Name">
+        <br/><br/>
+
+        <div class="form-row">
+        <label for="node-input-description"><i class="icon-tag"></i>Description: </label>
+        <input type="text" id="node-input-description" placeholder="Description">
+        <br/><br/>
+
+        <div class="form-row">
+        <label for="node-input-sourceRepository"><i class="icon-tag"></i>Source Repository: </label>
+        <input type="text" id="node-input-sourceRepository" placeholder="Source Repository">
+        <br/><br/>
+
+        <div class="form-row">
+        <label for="node-input-userToken"><i class="icon-tag"></i>User Token: </label>
+        <input type="text" id="node-input-userToken" placeholder="User Token">
+        <br/><br/>
+</fieldset>
+
+</script>
+
+<script type="text/x-red" data-help-name="Test Node">
+    <p>Train4FAIR is defined for a common agreement and integration between different PHT implementations.
+
+Train metadata includes the attributes to define overall Analytic task/workflow to be executed. Its component; Wagon is used as a term to define the atomic algorithm that is a subcomponent of the workflow, to run independently on a specific station. Wagon metadata contains attributes about required station profile and resources. Resources metadata attributes defines target runtime environment and all the constituent physical files of analytic task such as docker image file, python code file, cql query file .
+
+In our PHT Implementation Train is implemented as a Json document and registered as a Digital Object on DataCite.  A custom Train Repository with required REST-Services is designed and being implemented.</p>
+</script>
+
+<!--<script type="module" src="/static/train4fair/javascript/testscript.js"/>-->

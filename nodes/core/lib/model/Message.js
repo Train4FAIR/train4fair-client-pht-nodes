@@ -6,6 +6,7 @@ Message = {
         sourceRepository:"",
         userToken:"",
         internalId:"",
+        internalTrainId:"",
         internalVersion:"",
         internalPointer:"",
         correlationObjectId:"",
@@ -154,6 +155,7 @@ Message = {
         wagons:[
             {
                 name: "",
+                internalWagonId:"",
                 description: "",
                 checkMetadataAccess:"",
                 checkGeneralRegistryPolicy:"",

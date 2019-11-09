@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="Artifact">
+<script type="text/x-red" data-template-name="Artifact PHT">
     <div class="form-row">
 <fieldset>
     <legend>Artifact - Core</legend>
@@ -30,8 +30,8 @@
 </fieldset>
 </script>
 
-<script type="text/x-red" data-help-name="Artifact">
-    <p>PHT Train Metadata is defined for a common agreement and integration between different PHT implementations.
+<script type="text/x-red" data-help-name="Artifact PHT">
+    <p>Train4FAIR is defined for a common agreement and integration between different PHT implementations.
 
 Train metadata includes the attributes to define overall Analytic task/workflow to be executed. Its component; Wagon is used as a term to define the atomic algorithm that is a subcomponent of the workflow, to run independently on a specific station. Wagon metadata contains attributes about required station profile and resources. Resources metadata attributes defines target runtime environment and all the constituent physical files of analytic task such as docker image file, python code file, cql query file .
 
@@ -40,21 +40,21 @@ In our PHT Implementation Train is implemented as a Json document and registered
 
 
 <script type="text/javascript">
-    RED.nodes.registerType('Artifact', {
-        category: 'Train Modelling Nodes',
-        color: '#a6bbcf',
+    RED.nodes.registerType('Artifact PHT', {
+        category: 'Train4FAIR Personal Health Train Nodes',
+        color: '#fd9a9b',
         defaults: {
-            name: { value: "" },
-            filename: { value: "" },
+            name: { value: "Algorithm Item" },
+            filename: { value: "Choose a File." },
             extension: { value: "" },
-            filedata: { value: "" },
+            filedata: { value: "Choose a File." },
             format: { value: "utf8" },
         },
         inputs: 1,
         outputs: 1,
         icon: "file-in.png",
         label: function () {
-            return this.name || "Artifact";
+            return "Artifact: "+this.name || "Artifact PHT";
         },
         oneditprepare: function () {
             $("#node-input-file").change(function () {

@@ -1,6 +1,6 @@
 module.exports = function(RED) {
 
-    var trainUtil = require("./util/TrainUtil.js");
+    var trainUtil = require("../lib/util/TrainUtil.js");
     var message = require('../lib/model/Message.js');
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
@@ -8,20 +8,23 @@ module.exports = function(RED) {
 
     var index = 0;
 
-    function TrainNode(config) {
-        console.log("Starting Train Node");
+    function Train4FAIRHEADNode(config) {
+        console.log("Starting Train Node!!!...");
         RED.nodes.createNode(this,config);
         var node = this;
-        var flowContext = this.context().flow;
 
         // Train Core
         message = new Object();
         message.train = new Object();
+        message.train = new Object();
+        console.log("===== [Train4FAIRHEADNode] before input|config.name: "+config.name)
         message.train.name = config.name;
+        console.log("===== [Train4FAIRHEADNode] before input|message.train.name: "+message.train.name)
         message.train.description = config.description;
         message.train.sourceRepository = config.sourceRepository;
         message.train.userToken = config.userToken;
-        message.train.internalId = repositoryServiceLocator.getInternalId();
+        message.train.internalId = repositoryServiceLocator.getInternalTrainId();
+        message.train.internalTrainId = repositoryServiceLocator.getInternalTrainId();
         message.train.internalVersion = repositoryServiceLocator.getInternalVersion();
         message.train.internalPointer = "";
 
@@ -135,22 +138,17 @@ module.exports = function(RED) {
 
 
 
-
         this.on('input', function(msg) {
-
-            // console.log("flowContext: "+flowContext)
-            // console.log("global "+global);
-            // flowContext.set("trainNode",node);
-            // Train Core
-
-            console.log("Train init");
             message = new Object();
             message.train = new Object();
+            console.log("===== [Train4FAIRHEADNode] after input|config.name: "+config.name)
             message.train.name = config.name;
+            console.log("===== [Train4FAIRHEADNode] after input|message.train.name: "+message.train.name)
             message.train.description = config.description;
             message.train.sourceRepository = config.sourceRepository;
             message.train.userToken = config.userToken;
-            message.train.internalId = repositoryServiceLocator.getInternalId();
+            message.train.internalId = repositoryServiceLocator.getInternalTrainId();
+            message.train.internalTrainId = repositoryServiceLocator.getInternalTrainId();
             message.train.internalVersion = repositoryServiceLocator.getInternalVersion();
             message.train.internalPointer = repositoryServiceLocator.getInternalPointer();
 
@@ -273,7 +271,7 @@ module.exports = function(RED) {
             //Flow setup
             message.train.flow = new Object();
             message.train.flow.flowID = node.z;
-            message.train.flow.flowURL='http://'+repositoryServiceLocator.getTMTTestEnv().host+':'+repositoryServiceLocator.getTMTTestEnv().port+'/#flow/'+node.z;
+            message.train.flow.flowURL='http://'+repositoryServiceLocator.getTrainModellingToolEnvironment().host+':'+repositoryServiceLocator.getTrainModellingToolEnvironment().port+'/#flow/'+node.z;
             message.train.flow.description = msg.message.train.description;
             //======================================================
 
@@ -289,50 +287,14 @@ module.exports = function(RED) {
             node.internalId = "";
             node.internalId= msg.message.train.internalId;
             //======================================================
+            //get doi place
 
             //======================================================
-            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var env = repositoryServiceLocator.getMircroservicesEnvironment();
             var host = env.host;
             var port = env.port;
-
-            var landingpage = "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/index.html";
-            //======================================================
-            //get datacite identifier
-            var options = {
-                headers: {
-                    'content-type': 'application/vnd.api+json',
-                    authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
-                },
-                body: trainUtil.getBodyToCreateAnewFindableDOI(config.creatorContent
-                    ,config.titleContent,config.publisher,config.publicationYear,landingpage)
-            };
-
-            var res = request('POST','https://api.test.datacite.org/dois',options);
-            var draftDoi =  JSON.parse(res.getBody('utf8'));
-            if(draftDoi==null || draftDoi==="" || draftDoi==undefined){
-                console.log("2: Fail to obtain the datacite Identifier. Please contact the Train Modelling Tool Support!");
-            }
-
-            var prefix = draftDoi.data.attributes.prefix;
-            var suffix = draftDoi.data.attributes.suffix;
-            var doiHandlerWebPage = "https://api.test.datacite.org/dois/"+prefix+"/"+suffix;
-            var identifier = prefix+"/"+suffix;
-            alert("A new Identifier was generated: "+identifier+".\nFor more details follow the link below:\n"+landingpage);
-            console.log("The Identifier URL at datacite is: "+doiHandlerWebPage);
-
-            //TODO: Back to this point to change alerts for popups
-            //trainUtil.showNewIdentifierDialog(identifier,doiHandlerWebPage);
             //======================================================
 
-            // set Identifier
-            message.train.datacite.identifier.identifierType = "DOI";
-            message.train.datacite.identifier.content = identifier;
-            message.train.datacite.identifier.providerURL = doiHandlerWebPage;
-            message.train.datacite.identifier.prefix = prefix;
-            message.train.datacite.identifier.suffix = suffix;
-            message.train.datacite.identifier.metadataUrl = "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/train/"+message.train.internalId;
-            message.train.datacite.identifier.resourcesUrl= "http://"+repositoryServiceLocator.getDAVTestEnv().host+":"+repositoryServiceLocator.getDAVTestEnv().port+"/"+message.train.internalId+"/";
-            message.train.restApiDocUrl =  "http://"+repositoryServiceLocator.getMircroservicesTestEnv().host+":"+repositoryServiceLocator.getMircroservicesTestEnv().port+"/RepositoryService/swagger-ui.html";
             //======================================================
             //add train
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/train/add/', {
@@ -360,26 +322,10 @@ module.exports = function(RED) {
             //======================================================
 
 
-            //console.log("body =====> "+trainUtil.getBodyToChangeDataciteStatus());
-            //======================================================
-            //TODO uncoment
-            // var options = {
-            //     headers: {
-            //         'content-type': 'application/vnd.api+json',
-            //         authorization: 'Basic REVWLkZJVDpOYWhhbkAxMjM='
-            //     },
-            //     body: trainUtil.getBodyToChangeDataciteStatus(),
-            // };
-            // var resDoi = request('POST','https://api.test.datacite.org/dois',options);
-            // var publishedDoi =  JSON.parse(resDoi.getBody('utf8'));
-            // console.log("########====== publishedDoi ==>> "+JSON.stringify(publishedDoi));
 
-
-            //======================================================
-            console.log("doi Handler Page: "+doiHandlerWebPage);
-
-            msg.doi = draftDoi;
+            console.log("===== [Train4FAIRHEADNode] before send|msg.message.train.name: "+msg.message.train.name)
             msg.trainNode = node;
+
             node.send(msg);
 
             console.log("Train end");
@@ -389,5 +335,5 @@ module.exports = function(RED) {
 
     }
     index++;
-    RED.nodes.registerType("Train",TrainNode);
+    RED.nodes.registerType("Train Head",Train4FAIRHEADNode);
 }

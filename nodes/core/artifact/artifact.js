@@ -4,14 +4,14 @@ module.exports = function (RED) {
 
     'use strict';
 
-    var trainUtil = require("../train/util/TrainUtil.js");
+    var trainUtil = require("../lib/util/TrainUtil.js");
     var message = require('../lib/model/Message.js');
     var request = require('sync-request');
     var alert = require('alert-node');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var index = -1;
 
-    function ArtifactNode(config) {
+    function Artifact4PHTNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
         var artifacts = [];
@@ -69,7 +69,7 @@ module.exports = function (RED) {
 
 
                 //======================================================
-                var env = repositoryServiceLocator.getMircroservicesTestEnv();
+                var env = repositoryServiceLocator.getMircroservicesEnvironment();
                 var host = env.host;
                 var port = env.port;
                 //======================================================
@@ -114,5 +114,5 @@ module.exports = function (RED) {
     }
 
     index++;
-    RED.nodes.registerType("Artifact", ArtifactNode);
+    RED.nodes.registerType("Artifact PHT", Artifact4PHTNode);
 }

@@ -3,79 +3,74 @@
 <script type="text/javascript">
 
 
-    RED.nodes.registerType('Train',{
-        category: 'Train Modelling Nodes',
-        color: '#a6bbcf',
+    RED.nodes.registerType('Train Head',{
+        category: 'Train4FAIR Nodes',
+        color: '#f3f3f3',
         defaults: {
             <!-- Train Core. -->
-            name: {value:"",require:true},
-            description: {value:"",require:true},
-            sourceRepository: {value:"",require:true},
-            userToken: {value:"",require:true},
-            internalId: {value:"",require:true},
-            internalVersion: {value:"",require:true},
-            internalPointer: {value:"",require:true},
+            name: {value:"Check Rare Diseases Train",require:true},
+            description: {value:"Train to Check Rare Diseases Train",require:true},
+            sourceRepository: {value:"Fraunhofer FIT",require:true},
+            userToken: {value:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXNzYWdlIjoiSldUIFJ1bGVzISIsImlhdCI6MTQ1OTQ0ODExOSwiZXhwIjoxNDU5NDU0NTE5fQ.-yIVBD5b73C75osbmwwshQNRC7frWUYrqaTjTpza2y4",require:true},
+            internalId: {value:""},
+            internalTrainId: {value:""},
+            internalVersion: {value:""},
+            internalPointer: {value:""},
 
             <!-- Train DataCite Core -->
-            language: {value:"",require:true},
-            version: {value:"",require:true},
-            publicationYear: {value:"",require:true},
-            publisher: {value:"",require:true},
+            language: {value:"EN_ENGLISH",require:true},
+            version: {value:"0.0.1",require:true},
+            publicationYear: {value:"2019",require:true},
+            publisher: {value:"DataCite",require:true},
             <!-- Train DataCite - Identifier -->
-            identifierType: {value:"",require:true},
-            identifierContent: {value:"",require:true},
+            identifierType: {value:"ORCID",require:true},
+            identifierContent: {value:"https://orcid.org/0000-0001-6066-2602",require:true},
             <!-- Train DataCite - Creators -->
-            creatorAffiliation: {value:"",require:true},
-            creatorGivenName: {value:"",require:true},
-            creatorFamilyName: {value:"",require:true},
-            nameType: {value:"",require:true},
-            creatorContent: {value:"",require:true},
-            creatorNameIdentifierScheme: {value:"",require:true},
-            creatorSchemeURI: {value:"",require:true},
+            creatorAffiliation: {value:"Fraunhofer FIT",require:true},
+            creatorGivenName: {value:"Joao Bosco Jares",require:true},
+            creatorFamilyName: {value:"Jares",require:true},
+            nameType: {value:"PERSONAL",require:true},
+            creatorContent: {value:"Joao Bosco Jares MSc.",require:true},
+            creatorNameIdentifierScheme: {value:"ORCID",require:true},
+            creatorSchemeURI: {value:"http://orcid.org/",require:true},
             nameIdentifierContent: {value:"",require:true},
             <!-- Train DataCite - Subjects -->
-            subjectSchemeURI: {value:"",require:true},
-            subjectContent: {value:"",require:true},
-            subjectScheme: {value:"",require:true},
+            subjectSchemeURI: {value:"http://dewey.info/",require:true},
+            subjectContent: {value:"Train4FAIR",require:true},
+            subjectScheme: {value:"dewey",require:true},
             <!-- Train DataCite - Dates -->
-            dateType: {value:"",require:true},
-            dateInformation: {value:"",require:true},
-            dateContent: {value:"",require:true},
+            dateType: {value:"VALID",require:true},
+            dateInformation: {value:"Presentation Date",require:true},
+            dateContent: {value:"28/06/2019",require:true},
             <!-- Train DataCite - Formats -->
-            format: {value:"",require:true},
+            format: {value:"application/json",require:true},
             <!-- Train DataCite - RightsList -->
-            rightsURI: {value:"",require:true},
-            rightsContent: {value:"",require:true},
+            rightsURI: {value:"http://creativecommons.org/publicdomain/zero/1.0/",require:true},
+            rightsContent: {value:"CC0 1.0 Universal",require:true},
             <!-- Train DataCite - Titles -->
             titleContent: {value:"",require:true},
-            titleType: {value:"",require:true},
+            titleType: {value:"OTHER",require:true},
             <!-- Train DataCite - Descriptions -->
-            descriptionType: {value:"",require:true},
-            descriptionContent: {value:"",require:true},
+            descriptionType: {value:"OTHER",require:true},
+            descriptionContent: {value:"This Train aims to check rare disease incidence based on extracted data from multiple stations, preserving the patient's sensitive data.",require:true},
             <!-- Train DataCite - Contributors -->
-            contributorAffiliation: {value:"",require:true},
-            contributorGivenName: {value:"",require:true},
-            contributorFamilyName: {value:"",require:true},
-            contributorType: {value:"",require:true},
-            contributorName: {value:"",require:true},
-            contributorNameIdentifierScheme: {value:"",require:true},
-            contributorSchemeURI: {value:"",require:true},
-            contributorContent: {value:"",require:true},
+            contributorAffiliation: {value:"Frauhofer Fit",require:true},
+            contributorGivenName: {value:"Yeliz, Dr. Oya and Md. Karim MSc.",require:true},
+            contributorFamilyName: {value:"Train4FAIR Team",require:true},
+            contributorType: {value:"OTHER",require:true},
+            contributorName: {value:"Yeliz Ucer and Oya Deniz Beyan",require:true},
+            contributorNameIdentifierScheme: {value:"ORCID",require:true},
+            contributorSchemeURI: {value:"http://orcid.org/",require:true},
+            contributorContent: {value:"https://orcid.org/0000-0001-6066-2602",require:true},
             <!-- Train DataCite - FundingReferences -->
-            funderName: {value:"",require:true},
-            awardNumber: {value:"",require:true},
-            awardTitle: {value:"",require:true},
-            funderIdentifierType: {value:"",require:true},
+            funderName: {value:"Smith Care",require:true},
+            awardNumber: {value:"000-6687687-678678",require:true},
+            awardTitle: {value:"Train4FAIR",require:true},
+            funderIdentifierType: {value:"OTHER",require:true},
             fundingReferenceContent: {value:"",require:true},
             <!-- Train DataCite - ResourceType -->
-            resourceTypeGeneral: {value:"",require:true},
-            resourceTypeContent: {value:"",require:true},
-
-            <!-- Train UC03 - Example -->
-            isAccessConstraintsOk: {value:"",require:true},
-            hasGeneralRegistryPolicy: {value:"",require:true},
-            hasEnoughPatientOcurrences: {value:"",require:true},
-            aggregationResult: {value:"",require:true},
+            resourceTypeGeneral: {value:"application/json"},
+            resourceTypeContent: {value:"Workflow"}
 
         },
         inputs:0,
@@ -83,7 +78,7 @@
         icon: "../icons/train.png",
 
         label: function () {
-            return this.name || "Train";
+            return "Train Head: "+this.name || "Train Head";
         },
 
         button: {
@@ -178,7 +173,7 @@
 <!-- Train Core -->
 
 
-<script type="text/x-red" data-template-name="Train">
+<script type="text/x-red" data-template-name="Train Head">
 <fieldset>
     <legend>Train Core</legend>
     <div class="form-row">
@@ -207,8 +202,8 @@
          <div class="form-row">
             <label for="node-input-language"><i class="icon-tag"></i>Language: </label>
             <select type="text" id="node-input-language">
-                <option value="EN_ENGLISH">EN_ENGLISH</option>
                 <option value="DE_GERMAN">DE_GERMAN</option>
+                <option value="EN_ENGLISH">EN_ENGLISH</option>
                 <option value="other">OTHER</option>
             </select>
         </div>
@@ -535,56 +530,31 @@
           <div class="form-row">
             <label for="node-input-resourceTypeGeneral"><i class="icon-tag"></i>Resource Type: </label>
             <select type="text" id="node-input-resourceTypeGeneral">
-                <option value="AUDIOVISUAL">AUDIOVISUAL</option>
-                <option value="COLLECTION">COLLECTION</option>
-                <option value="DATAPAPER">DATAPAPER</option>
+                <option value="Audiovisual">Audiovisual</option>
+                <option value="Collection">Collection</option>
+                <option value="Dataset">Dataset</option>
                 <option value="DATASET">DATASET</option>
-                <option value="EVENT">EVENT</option>
-                <option value="IMAGE">IMAGE</option>
-                <option value="INTERACTIVERESOURCE">INTERACTIVERESOURCE</option>
-                <option value="MODEL">MODEL</option>
-                <option value="PHYSICALOBJECT">PHYSICALOBJECT</option>
-                <option value="SERVICE">SERVICE</option>
-                <option value="SOFTWARE">SOFTWARE</option>
-                <option value="SOUND">SOUND</option>
-                <option value="TEXT">TEXT</option>
-                <option value="WORKFLOW">WORKFLOW</option>
-                <option value="TRAIN">TRAIN</option>
-                <option value="OTHER">OTHER</option>
+                <option value="Event">Event</option>
+                <option value="Image">Image</option>
+                <option value="InteractiveResource">InteractiveResource</option>
+                <option value="Model">Model</option>
+                <option value="PhysicalObject">PhysicalObject</option>
+                <option value="Service">Service</option>
+                <option value="Software">Software</option>
+                <option value="Sound">Sound</option>
+                <option value="Text">Text</option>
+                <option value="Workflow">Workflow</option>
+                <option value="Other">Other</option>
             </select>
         </div>
         <br/><br/>
 
 </fieldset>
 
-<fieldset>
-    <legend>Train - UC03 Result</legend>
-
-            <div class="form-row">
-        <label for="node-input-isAccessConstraintsOk"><i class="icon-tag"></i>Is Access Constraints Valid: </label>
-        <input type="text" id="node-input-isAccessConstraintsOk" >
-        <br/><br/>
-
-                <div class="form-row">
-        <label for="node-input-hasGeneralRegistryPolicy"><i class="icon-tag"></i>There is General Registry Policy: </label>
-        <input type="text" id="node-input-hasGeneralRegistryPolicy">
-        <br/><br/>
-
-                <div class="form-row">
-        <label for="node-input-hasEnoughPatientOcurrences"><i class="icon-tag"></i>There are Enough Patient Ocurrences: </label>
-        <input type="text" id="node-input-hasEnoughPatientOcurrences" >
-        <br/><br/>
-
-                <div class="form-row">
-        <label for="node-input-aggregationResult"><i class="icon-tag"></i>Aggregation Result: </label>
-        <input type="text" id="node-input-aggregationResult" >
-        <br/><br/>
-
-</fieldset>
 </script>
 
-<script type="text/x-red" data-help-name="Train">
-    <p>PHT Train Metadata is defined for a common agreement and integration between different PHT implementations.
+<script type="text/x-red" data-help-name="Train Head">
+    <p>Train4FAIR is defined for a common agreement and integration between different PHT implementations.
 
 Train metadata includes the attributes to define overall Analytic task/workflow to be executed. Its component; Wagon is used as a term to define the atomic algorithm that is a subcomponent of the workflow, to run independently on a specific station. Wagon metadata contains attributes about required station profile and resources. Resources metadata attributes defines target runtime environment and all the constituent physical files of analytic task such as docker image file, python code file, cql query file .
 

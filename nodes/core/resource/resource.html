@@ -1,35 +1,35 @@
 <script type="text/javascript">
-    RED.nodes.registerType('Resource',{
-        category: 'Train Modelling Nodes',
-        color: '#a6bbcf',
+    RED.nodes.registerType('Resource PHT',{
+        category: 'Train4FAIR Personal Health Train Nodes',
+        color: '#fd9a9b',
         defaults: {
 
-            name: {value:"",require:true},
-            description: {value:"",require:true},
+            name: {value:"My Resource PHT",require:true},
+            description: {value:"Resource Description",require:true},
             //OCI
-            created: {value:""},
-            author: {value:""},
-            architecture: {value:""},
-            os: {value:""},
-            user: {value:""},
-            port: {value:""},
-            protocol: {value:""},
-            env: {value:""},
-            entrypoint: {value:""},
-            cmd: {value:""},
-            volumes: {value:""}
+            created: {value:"28/06/2019"},
+            author: {value:"jbjares@gmail.com"},
+            architecture: {value:"AMD64/x86_64"},
+            os: {value:"Ubuntu"},
+            user: {value:"jbjares"},
+            port: {value:"27017:27017"},
+            protocol: {value:"https"},
+            env: {value:"dev"},
+            entrypoint: {value:"/bin/bash"},
+            cmd: {value:"./start.sh"},
+            volumes: {value:"- ./data/db:/data/db"}
         },
         inputs:1,
         outputs:1,
         icon: "../icons/resource.png",
         label: function () {
-            return this.name || "Resource";
+            return "Resource: "+this.name || "Resource PHT";
         },
     });
 </script>
 
 
-<script type="text/x-red" data-template-name="Resource">
+<script type="text/x-red" data-template-name="Resource PHT">
 <fieldset>
     <legend>Resource Core</legend>
     <div class="form-row">
@@ -145,8 +145,8 @@
 
 </script>
 
-    <script type="text/x-red" data-help-name="Resource">
-    <p>PHT Train Metadata is defined for a common agreement and integration between different PHT implementations.
+    <script type="text/x-red" data-help-name="Resource PHT">
+    <p>Train4FAIR is defined for a common agreement and integration between different PHT implementations.
 
 Train metadata includes the attributes to define overall Analytic task/workflow to be executed. Its component; Wagon is used as a term to define the atomic algorithm that is a subcomponent of the workflow, to run independently on a specific station. Wagon metadata contains attributes about required station profile and resources. Resources metadata attributes defines target runtime environment and all the constituent physical files of analytic task such as docker image file, python code file, cql query file .
 

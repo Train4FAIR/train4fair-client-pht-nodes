@@ -6,10 +6,10 @@
             "wagon": "nodes/core/wagon/wagon.js",
             "resource": "nodes/core/resource/resource.js",
             "artifact": "nodes/core/artifact/artifact.js",
-            "execute": "nodes/core/execute/execute.js"
+            "ship": "nodes/core/ship/ship.js"
         }
     },
-    "version": "0.0.19",
+    "version": "0.0.23",
     "traindescription": "The nodes train, wagon, resources and Artifacts, to compose a Smart Train @ menzel.informatik.rwth-aachen.de",
     "dependencies": {
         "ajv": "6.10.0",
@@ -24,7 +24,7 @@
         "fs-extra": "7.0.1",
         "fs.notify": "0.0.4",
         "hash-sum": "1.0.2",
-        "https-proxy-agent": "2.2.1",
+        "https-proxy-agent": "^3.0.1",
         "iconv-lite": "0.4.24",
         "is-utf8": "0.2.1",
         "jquery": "^3.4.1",

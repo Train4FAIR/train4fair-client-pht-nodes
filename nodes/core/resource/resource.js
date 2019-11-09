@@ -2,13 +2,13 @@ module.exports = function(RED) {
 
     'use strict';
     var message = require('../lib/model/Message.js');
-    var trainUtil = require("../train/util/TrainUtil.js");
+    var trainUtil = require("../lib/util/TrainUtil.js");
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var alert = require('alert-node');
     var index = -1;
 
-    function ResourceNode(config) {
+    function Resource4PHTNode(config) {
 
         console.log("Starting Resource Node");
         RED.nodes.createNode(this,config);
@@ -104,7 +104,7 @@ module.exports = function(RED) {
 
 
             //======================================================
-            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var env = repositoryServiceLocator.getMircroservicesEnvironment();
             var host = env.host;
             var port = env.port;
 
@@ -148,5 +148,5 @@ module.exports = function(RED) {
     }
 
     index++;
-    RED.nodes.registerType("Resource",ResourceNode);
+    RED.nodes.registerType("Resource PHT",Resource4PHTNode);
 }

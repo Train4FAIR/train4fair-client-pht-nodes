@@ -1,20 +1,21 @@
 module.exports = function(RED) {
     console.log("Starting Wagon Node");
     'use strict';
-    var trainUtil = require("../train/util/TrainUtil.js");
+    var trainUtil = require("../lib/util/TrainUtil.js");
     var message = require('../lib/model/Message.js');
     var request = require('sync-request');
     var repositoryServiceLocator = require('../lib/util/RepositoryService.js');
     var alert = require('alert-node');
     var index = -1;
 
-    function WagonNode(config) {
+    function Wagon4PHTNode(config) {
         RED.nodes.createNode(this,config);
         var node = this;
 
         var wagons = [];
         wagons[index] = new Object();
         wagons[index].name = config.name;
+        wagons[index].internalWagonId = repositoryServiceLocator.getInternalWagonId();
         wagons[index].description = config.description;
         wagons[index].stationProfiles = new Object();
         wagons[index].stationProfiles.stationProfile = [];
@@ -50,6 +51,7 @@ module.exports = function(RED) {
             var wagons = [];
             wagons[index] = new Object();
             wagons[index].name = config.name;
+            wagons[index].internalWagonId = repositoryServiceLocator.getInternalWagonId();
             wagons[index].description = config.description;
             wagons[index].stationProfiles = new Object();
             wagons[index].stationProfiles.stationProfile = [];
@@ -77,7 +79,7 @@ module.exports = function(RED) {
 
 
             //======================================================
-            var env = repositoryServiceLocator.getMircroservicesTestEnv();
+            var env = repositoryServiceLocator.getMircroservicesEnvironment();
             var host = env.host;
             var port = env.port;
             //======================================================
@@ -112,7 +114,7 @@ module.exports = function(RED) {
             //======================================================
             //add wagon
             msg.message.train.wagons.internalId = msg.message.train.internalId;
-            //msg.message.train.wagons.internalPointer = msg.message.train.internalPointer;
+            msg.message.train.wagons.internalWagonId = wagons[index].internalWagonId;
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagon/add/'+msg.message.train.internalId+'/', {
                 json: wagons[index],
             });
@@ -130,7 +132,11 @@ module.exports = function(RED) {
             }
 
             node.internalId = msg.message.train.internalId;
+            node.internalWagonId = wagons[index].internalWagonId;
             node.internalPointer = msg.message.train.wagons.internalPointer;
+
+            //console.log('wagon node => node.internalWagonId: '+node.internalWagonId)
+            //console.log('wagon node => msg.message.train.wagons.internalId: '+msg.message.train.wagons.internalWagonId)
             //======================================================
             var res = request('POST', 'http://'+host+':'+port+'/RepositoryService/wagonNode/add/'+msg.message.train.internalId+'/'+msg.message.train.internalVersion, {
                 json: node,
@@ -138,12 +144,12 @@ module.exports = function(RED) {
             //======================================================
 
 
-
+            //msg.wagonNode.internalWagonId
 
             msg.wagonNode = node;
             node.send(msg);
         });
     }
     index++;
-    RED.nodes.registerType("Wagon",WagonNode);
+    RED.nodes.registerType("Wagon PHT",Wagon4PHTNode);
 }
